@@ -1,4 +1,4 @@
-# data/
+# Image Files Location
 Image files are not stored in this repository. 
 Image files are stored in Google Drive due to their size..
 
