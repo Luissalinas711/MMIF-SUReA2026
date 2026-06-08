@@ -9,7 +9,7 @@ from datetime import date
 #Edit here to match your setup
 GITHUB_USER = 'Luissalinas711'
 REPO = 'MMIF-SUReA2026'
-DRIVE_ROOT = '/content/drive/My Drive/MMIF-SUReA2026'
+DRIVE_ROOT = '/content/drive/MyDrive/MMIF-SUReA2026'
 REPO_PATH = f'/content/{REPO}'
 
 def _startup():
