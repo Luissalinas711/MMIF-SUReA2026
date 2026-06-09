@@ -1,8 +1,9 @@
 
-# PURPOSE: This file is stored in this repository as a reference for
-# anyone who wants to reproduce this project in their own Colab environment.
-# It is not imported directly from Colab, as errors can occur 
-# when pulling from 
+# Purpose: Startup should rebuild what Google Colab forgets from session to session.
+# Finish should save any progress to defined Github Repo because Colab does not save automatically.
+# This file is stored in this repository as a reference for anyone who wants to reproduce this project in their own Colab environment.
+# It is not imported directly from Colab, as errors can occur. 
+
 # HOW TO USE IN YOUR OWN COLAB:
 # 1. Copy the startup block into a Colab Snippet (Tools > Snippets)
 # 2. Copy the finish() function into a second Colab Snippet
