@@ -1,8 +1,9 @@
 
 # Purpose: Startup should rebuild what Google Colab forgets from session to session.
-# Finish should save any progress to defined Github Repo because Colab does not save automatically.
+# Finish should save any progress to defined Github Repository
 # This file is stored in this repository as a reference for anyone who wants to reproduce this project in their own Colab environment.
-# It is not imported directly from Colab, as errors can occur. 
+# Please adjust necessary values in Colab with your own information
+
 
 # HOW TO USE IN YOUR OWN COLAB:
 # 1. Create a new file in Colab (title mmif-startup or mmif-finish)
@@ -15,13 +16,14 @@
 from google.colab import drive, userdata
 import os, sys
 
+# Retrieve Github Personal Access Token (PAT) 
 PAT = userdata.get('GITHUB_PAT')
 print(f'PAT found: {PAT is not None}')
 
 drive.mount('/content/drive')
 
 # Settings meant to match your setup
-GITHUB_USER = 'Luissalinas711'
+GITHUB_USER = 'Enter Your Username Here'
 REPO        = 'MMIF-SUReA2026'
 DRIVE_ROOT  = '/content/drive/My Drive/MMIF-SUReA2026'
 REPO_PATH   = f'/content/{REPO}'
@@ -51,7 +53,7 @@ import subprocess
 from datetime import date
 
 os.chdir(REPO_PATH)
-os.system(f'git config user.name "Luissalinas711"')
+os.system(f'git config user.name "Enter Your Username Here"')
 os.system('git add .')
 
 commit_msg = f"{date.today()} — EDIT THIS MESSAGE"
