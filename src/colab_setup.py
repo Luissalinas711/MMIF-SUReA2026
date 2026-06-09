@@ -1,18 +1,26 @@
-# src/colab_setup.py
-# Run with: import colab_setup (start of every session)
-# or: colab_setup.finish("insert message here") (end of every session)
+
+# PURPOSE: This file is stored in this repository as a reference for
+# anyone who wants to reproduce this project in their own Colab environment.
+# It is not imported directly from Colab, as errors can occur 
+# when pulling from 
+# HOW TO USE IN YOUR OWN COLAB:
+# 1. Copy the startup block into a Colab Snippet (Tools > Snippets)
+# 2. Copy the finish() function into a second Colab Snippet
+# 3. Call the startup snippet as Cell 1 in every notebook
+# 4. Call finish("insert your message here") as the last cell before closing
 
 from google.colab import drive, userdata
 import os, sys, subprocess
 from datetime import date
 
-#Edit here to match your setup
+# Settings meant to match your setup
 GITHUB_USER = 'Luissalinas711'
 REPO = 'MMIF-SUReA2026'
-DRIVE_ROOT = '/content/drive/MyDrive/MMIF-SUReA2026'
+DRIVE_ROOT = '/content/drive/My Drive/MMIF-SUReA2026'
 REPO_PATH = f'/content/{REPO}'
 
-def _startup():
+# Startup meant to run at the beginning of every session
+def startup():
  PAT = userdata.get('GITHUB_PAT')
  print(f'PAT found: {PAT is not None}')
  drive.mount('/content/drive')
@@ -35,15 +43,14 @@ def _startup():
  print('Session ready.')
  print(f' REPO : {REPO_PATH}')
  print(f' DATA : {builtins.DATA}')
-_startup()
 
-#Used at the end of every session
-def finish(message=None):
-    os.chdir(REPO_PATH)
-    os.system(f'git config user.name  "{GITHUB_USER}"')
-    os.system('git add .')
-    msg = message or f"{date.today()} — session commit"
-    r = subprocess.run(['git', 'commit', '-m', msg], capture_output=True, text=True)
-    print(r.stdout or r.stderr)
-    p = subprocess.run(['git', 'push'], capture_output=True, text=True)
-    print('Pushed.' if p.returncode == 0 else p.stderr)
+# Finisher meant to run at the end of every session
+ finish(message=None):
+ os.chdir(REPO_PATH)
+ os.system(f'git config user.name "{GITHUB_USER}"')
+ os.system('git add .')
+ msg = message or f"{date.today()} — session commit"
+ r = subprocess.run(['git', 'commit', '-m', msg], capture_output=True, text=True)
+ print(r.stdout or r.stderr)
+ p = subprocess.run(['git', 'push'], capture_output=True, text=True)
+ print('Pushed.' if p.returncode == 0 else p.stderr)
