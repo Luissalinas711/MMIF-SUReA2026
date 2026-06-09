@@ -5,10 +5,11 @@
 # It is not imported directly from Colab, as errors can occur. 
 
 # HOW TO USE IN YOUR OWN COLAB:
-# 1. Copy the startup block into a Colab Snippet (Tools > Snippets)
-# 2. Copy the finish() function into a second Colab Snippet
-# 3. Call the startup snippet as Cell 1 in every notebook
-# 4. Call finish("insert your message here") as the last cell before closing
+# 1. Create a new file in Colab (title mmif-startup or mmif-finish)
+# 2. Creat a title block (##Title) and insert cell for code below.
+# 3. Tools > Settings > Paste Url into "Custom Notebook Snippet URL" > Save
+# 4. Call the startup snippet as Cell 1 in every notebook
+# 5. Call finish snippet as the last cell before closing
 
 from google.colab import drive, userdata
 import os, sys, subprocess
