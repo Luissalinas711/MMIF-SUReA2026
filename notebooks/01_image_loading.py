@@ -107,7 +107,7 @@ ct_count    = len(os.listdir(CT_DIR))
 spect_count = len(os.listdir(SPECT_DIR))
 
 if ct_count > 0 and spect_count > 0:
-    print('Images already present — skipping download.')
+    print('Images already present, skipping download.')
     print(f'  mri_ct/    : {ct_count} files  ({ct_count // 2} pairs)')
     print(f'  mri_spect/ : {spect_count} files  ({spect_count // 2} pairs)')
     print('Delete the files manually if you want to re-download.')
