@@ -28,5 +28,6 @@ def display_comparison(*images, titles, save_path=None):
         ax.set_title(title, fontsize=11, fontweight='bold')
         ax.axis('off')
     if save_path:
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)  
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
     plt.show()
