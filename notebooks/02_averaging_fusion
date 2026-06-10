@@ -1,0 +1,40 @@
+# This notebook is used for fusion through the averaging of two source images
+# Remember to copy-paste startup and finisher cell in appropriate locations.
+
+#V erify pairs are available before fusing
+import numpy as np, os
+from utils import load_image_pair, display_comparison
+
+ct_mri    = sorted(f for f in os.listdir(f'{DATA}/mri_ct')    if '_mri_' in f)
+spect_mri = sorted(f for f in os.listdir(f'{DATA}/mri_spect') if '_mri_' in f)
+print(f'MRI+CT: {len(ct_mri)} pairs    MRI+SPECT: {len(spect_mri)} pairs')
+
+assert len(ct_mri) > 0 and len(spect_mri) > 0, 'No images found — run the downloader first'
+
+# Fuse all MRI+CT pairs
+for mri_file in ct_mri:
+    ct_file   = mri_file.replace('_mri_', '_ct_')
+    pair_name = mri_file.replace('_mri_', '_').replace('.gif', '')
+    mri, ct   = load_image_pair(f'{DATA}/mri_ct/{mri_file}',
+                                 f'{DATA}/mri_ct/{ct_file}')
+
+    fused = np.clip((mri + ct) / 2.0, 0.0, 1.0)
+
+    display_comparison(mri, ct, fused,
+                       titles=['MRI', 'CT', 'Average Fused'],
+                       save_path=f'{REPO_PATH}/results/averaging/{pair_name}_ct.png')
+    print(f'Saved: {pair_name}_ct')
+
+# Fuse all MRI+SPECT pairs
+for mri_file in spect_mri:
+    tc_file    = mri_file.replace('_mri_', '_tc_')
+    pair_name  = mri_file.replace('_mri_', '_').replace('.gif', '')
+    mri, spect = load_image_pair(f'{DATA}/mri_spect/{mri_file}',
+                                  f'{DATA}/mri_spect/{tc_file}')
+
+    fused = np.clip((mri + spect) / 2.0, 0.0, 1.0)
+
+    display_comparison(mri, spect, fused,
+                       titles=['MRI', 'SPECT', 'Average Fused'],
+                       save_path=f'{REPO_PATH}/results/averaging/{pair_name}_spect.png')
+    print(f'Saved: {pair_name}_spect')
