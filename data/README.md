@@ -5,7 +5,7 @@ Image files are stored in Google Drive due to their size..
 ## Data Setup
 
 ## 1. Automatic Download
-Follow steps in notebooks/01_image_loading.py 
+Follow steps in notebooks/01_image_loading.py  
 Run to download automatically to appropriate Google Drive location (remember to update startup cell with your information).
 
 ## 2. Manual Download
