@@ -102,10 +102,13 @@ def scan_and_download(case_list, modality, save_folder, n_cases=2, n_pairs=5):
             for p in saved_paths:
                 if os.path.exists(p): os.remove(p)
 
-# Only download if folders are empty. Skip if images already present
+# Checking number of files in each folder
 ct_count    = len(os.listdir(CT_DIR))
 spect_count = len(os.listdir(SPECT_DIR))
 
+# Summarize the Results depending on 1 of 2 cases
+# 1. Required number of files are already present. 
+# 2. Files are successfully downloaded to Drive.
 if ct_count > 0 and spect_count > 0:
     print('Images already present, skipping download.')
     print(f'  mri_ct/    : {ct_count} files  ({ct_count // 2} pairs)')
@@ -114,10 +117,8 @@ if ct_count > 0 and spect_count > 0:
 else:
     scan_and_download(CT_CASES,    'ct', CT_DIR)
     scan_and_download(SPECT_CASES, 'tc', SPECT_DIR)
-# Summarize the Results
     print()
     print('─' * 45)
     for d, label in [(CT_DIR, 'MRI+CT'), (SPECT_DIR, 'MRI+SPECT')]:
         n = len(os.listdir(d))
         print(f'{label}: {n} files  ({n // 2} pairs)')
-
