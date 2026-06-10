@@ -1,7 +1,7 @@
 # This notebook is used for fusion through the averaging of two source images
 # Remember to copy-paste startup and finisher cell in appropriate locations.
 
-#V erify pairs are available before fusing
+# Verify pairs are available before fusing
 import numpy as np, os
 from utils import load_image_pair, display_comparison
 
