@@ -57,8 +57,8 @@ os.system('git add .')
 # Edit here: short description of changes made this session
 subprocess.run(['git', 'commit', '-m', f"{date.today()} — EDIT THIS"])
 
-# Push file(s) to Github
-subprocess.run(['git', 'push'])
+# Precautionary that syncs up Colab and Github
+os.system('git pull --rebase')
 
 p = subprocess.run(['git', 'push'], capture_output=True, text=True)
 print('Pushed to GitHub.' if p.returncode == 0 else p.stderr)
