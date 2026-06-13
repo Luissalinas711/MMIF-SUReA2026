@@ -1,5 +1,5 @@
-## This notebook is used for fusion through the averaging of two source images
-## Remember to copy-paste startup and finisher cell in appropriate locations.
+# This notebook is used for fusion through the averaging of two source images
+# Remember to copy-paste startup and finisher cell in appropriate locations.
 
 # Check images are present before running
 import numpy as np, os
