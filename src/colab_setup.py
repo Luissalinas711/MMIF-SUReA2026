@@ -18,6 +18,7 @@ import os, sys
 
 # Retrieve Github Personal Access Token (PAT) 
 # Insert your own PAT in Colab sidebar
+# ALWAYS REMEMBER TO GIVE EACH NEW FILE ACCESS TO YOUR PAT IN COLAB
 PAT = userdata.get('GITHUB_PAT')
 print(f'PAT found: {PAT is not None}')
 
