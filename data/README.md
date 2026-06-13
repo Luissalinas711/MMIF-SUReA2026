@@ -3,7 +3,7 @@ Image files are not stored in this repository.
 Image files are stored in Google Drive due to their size.
 
 ## How to Download
-Follow steps in notebooks/01_image_loading.py  
+Follow steps in notebooks/01_download_images.py  
 Run to download automatically to appropriate Google Drive location (remember to update startup cell with your information).
 Manual downloading is an option, but ensure that image sizes and file types are consistent.
 
