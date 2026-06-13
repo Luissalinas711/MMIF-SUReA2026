@@ -1,16 +1,20 @@
 # Image Files Location
 Image files are not stored in this repository. 
-Image files are stored in Google Drive due to their size..
+Image files are stored in Google Drive due to their size.
 
-## Data Setup
-
-## 1. Automatic Download
+## How to Download
 Follow steps in notebooks/01_image_loading.py  
 Run to download automatically to appropriate Google Drive location (remember to update startup cell with your information).
+Manual downloading is an option, but ensure that image sizes and file types are consistent.
 
-## 2. Manual Download
-Download matched MRI-CT and MRI-PET image pairs from the Harvard Whole Brain Atlas (AANLIB):  
-http://www.med.harvard.edu/AANLIB/home.html
+## Modality Combinations (3 Total)
+MRI+CT — anatomical + anatomical 
+MRI+SPECT — anatomical + functional 
+MRI+PET — anatomical + functional 
 
-Place the image files in a folder that is accessible to your Google Colab session.
-Update the DATA variable in the startup cell to point to your location.
+## Google Drive Location
+My Drive/MMIF-SUReA2026/mmif_data/
+ mri_ct/ filenames: label_mri_image#.gif, label_ct_image#.gif
+ mri_spect/ filenames: label_mri_image#.gif, label_tc_image#.gif
+ mri_pet/ filenames: label_mri_image#.gif, label_dg_image#.gif
+ 
