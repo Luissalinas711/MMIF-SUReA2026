@@ -1,6 +1,7 @@
-# Image Files Location
-Image files are not stored in this repository. 
+## Image Files Location
+Image files are not stored in this repository.  
 Image files are stored in Google Drive due to their size.
+All images are saved as PNG regardless of the original format  
 
 ## How to Download
 Follow steps in notebooks/01_download_images.py  
