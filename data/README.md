@@ -4,7 +4,8 @@ Image files are stored in Google Drive due to their size.
 
 ## How to Download
 Follow steps in notebooks/01_download_images.py  
-Run to download automatically to appropriate Google Drive location (remember to update startup cell with your information).
+Run to download automatically to appropriate Google Drive location (remember to update startup cell with your information).  
+Always remember to give new Colab files access to PAT (this is done manually).  
 Manual downloading is an option, but ensure that image sizes and file types are consistent.
 
 ## Modality Combinations (3 Total)
