@@ -14,8 +14,8 @@ MRI+SPECT — anatomical + functional
 MRI+PET — anatomical + functional  
 
 ## Google Drive Location
-My Drive/MMIF-SUReA2026/mmif_data/
- mri_ct/ filenames: label_mri_image#.gif, label_ct_image#.gif
- mri_spect/ filenames: label_mri_image#.gif, label_tc_image#.gif
- mri_pet/ filenames: label_mri_image#.gif, label_dg_image#.gif
+My Drive/MMIF-SUReA2026/mmif_data/  
+ mri_ct/ filenames: label_mri_image#.gif, label_ct_image#.gif  
+ mri_spect/ filenames: label_mri_image#.gif, label_tc_image#.gif  
+ mri_pet/ filenames: label_mri_image#.gif, label_dg_image#.gif  
  
