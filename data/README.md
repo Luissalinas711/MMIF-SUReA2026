@@ -8,9 +8,9 @@ Run to download automatically to appropriate Google Drive location (remember to 
 Manual downloading is an option, but ensure that image sizes and file types are consistent.
 
 ## Modality Combinations (3 Total)
-MRI+CT — anatomical + anatomical 
-MRI+SPECT — anatomical + functional 
-MRI+PET — anatomical + functional 
+MRI+CT — anatomical + anatomical   
+MRI+SPECT — anatomical + functional  
+MRI+PET — anatomical + functional  
 
 ## Google Drive Location
 My Drive/MMIF-SUReA2026/mmif_data/
