@@ -60,9 +60,9 @@ def laplacian_pyramid_fuse(img_A, img_B, levels=4, sigma=1.0):
         H, W = img.shape
         # Create doubled-sized output image filled with zeros at every other pixel
         expanded = np.zeros((H * 2, W * 2), dtype=np.float32)
-        # Place original pixels at even positions — odd positions stay zero
+        # Place original pixels at even positions. Odd positions stay zero
         expanded[::2, ::2] = img
-        # Blur to interpolate the zero-filled positions
+        # Blur to fill the zeroed out pixel positions
         # Scale by 4 to compensate for the zeros inserted
         # This is because the kernel sums over 25 values but only ~6-7 are non-zero now
         smoothed = gaussian_blur(expanded) * 4.0
