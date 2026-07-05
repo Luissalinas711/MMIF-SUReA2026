@@ -1,6 +1,5 @@
-
-# Purpose: Startup should rebuild what Google Colab forgets from session to session.
-# Finish should save any progress to defined Github Repository
+# Purpose: Startup rebuilds what Google Colab forgets from session to session.
+# Finish saves any progress to defined Github Repository
 # This file is stored in this repository as a reference for anyone who wants to reproduce this project in their own Colab environment.
 # Please adjust necessary values in Colab with your own information
 
@@ -16,7 +15,7 @@
 from google.colab import drive, userdata
 import os, sys
 
-# Retrieve Github Personal Access Token (PAT) 
+# Retrieve Github Personal Access Token (PAT)
 # Insert your own PAT in Colab sidebar
 # ALWAYS REMEMBER TO GIVE EACH NEW FILE ACCESS TO YOUR PAT IN COLAB
 PAT = userdata.get('GITHUB_PAT')
@@ -34,7 +33,7 @@ DATA        = f'{DRIVE_ROOT}/mmif_data'   # your image files in Google Drive
 MODELS      = f'{DRIVE_ROOT}/mmif_models'   # DenseFuse info in Google Drive
 
 # Allows src/ files to be importable by cloning Github repo
-os.system(f'git clone https://{PAT}@github.com/'Enter Your Username Here'/MMIF-SUReA2026 {REPO_PATH}')
+os.system(f'git clone https://{PAT}@github.com/{GITHUB_USER}/{REPO} {REPO_PATH}')
 os.chdir(REPO_PATH)
 sys.path.insert(0, f'{REPO_PATH}/src')
 
