@@ -8,7 +8,7 @@ SUReA 2026 undergraduate research at CSUF comparing four multimodal medical imag
 
 ## Status
 
-Week 1 - Project Setup
+Week 5 - Cleaning Up Repository
 
 ## Methods
 
@@ -22,5 +22,5 @@ Week 1 - Project Setup
 Harvard Whole Brain Atlas (AANLIB)
 https://www.med.harvard.edu/AANLIB/home.html
 
-Images are stored in Google Drive. Images will not be committed to this repository.
+Source images are stored in Google Drive. Source images will not be committed to this repository. Only fused results will be stored here.
 See data/README.md for the Google Drive path and any download instructions.
