@@ -4,8 +4,7 @@
 # Run once to add image pairs to your Google Drive.
 
 # Downloads MRI+CT, MRI+SPECT, and MRI+PET brain image pairs
-# Images are saved as PNG regardless of the original format on the server (some
-# images are originally GIF files)
+# Images are saved as PNG regardless of the original format on the server (some images are originally GIF files)
 
 import urllib.request, os, numpy as np
 # PIL allows us to work with GIF files from site
@@ -18,8 +17,7 @@ PET_DIR   = f'{DATA}/mri_pet' # MRI+PET cases go here in Drive
 for d in [CT_DIR, SPECT_DIR, PET_DIR]:
     os.makedirs(d, exist_ok=True)
 
-# Cases chosen based off how easily the case may be recognized by audience and
-# highest number of valid files
+# Cases chosen based off how easily the case may be recognized by audience and highest number of valid files
 # MRI+CT: anatomical + anatomical (bone/dense tissue vs soft tissue)
 CT_CASES = [
     ('case13', 'stroke'),       # Acute stroke 
@@ -46,7 +44,7 @@ PET_CASES = [
 
 def download_image(case, prefix, s, save_path):
     # Try each folder variant (mr1/mr2/mr3/mr4) and both file formats (.gif and .png)
-    # Some AANLIB cases store images as GIF, others as PNG — we try both
+    # Some AANLIB cases store images as GIF, others as PNG so its best we try both
     # Whatever format downloads successfully gets converted to PNG and saved
     for n in ['1', '2', '3', '4']:
         for ext in ['.gif', '.png']:
@@ -69,7 +67,7 @@ def download_image(case, prefix, s, save_path):
                     os.remove(tmp)
                     return True
 
-                # If mage was too dark, then delete and try new image
+                # If image was too dark, then delete and try new image
                 os.remove(tmp)
 
             except:
