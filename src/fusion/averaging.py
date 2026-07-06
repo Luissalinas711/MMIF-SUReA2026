@@ -1,4 +1,4 @@
-# Simple averaging fusion. This is Method 1 and is the actinng baseline. 
+# Simple averaging fusion. This is Method 1 and is the acting baseline. 
 # Every output pixel is just the average of the two source pixels, so it's the simplest thing you can do. 
 # It tends to wash out contrast , but it's a good base to compare the better methods against.
 # All other methods should outperform this method for image fusion!
