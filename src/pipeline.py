@@ -66,13 +66,13 @@ def fuse_all_pairs(fusion_fn, method, data_root, results_root,
             fused = fusion_fn(mri, partner)
 
             # save the fused image by itself (necessary for metric evaluation later)
-            save_fused(fused, f'{results_root}/{method}/fused/{name}.png')
+            save_fused(fused, f'{results_root}/{method}/fused_only/{name}.png')
 
             # save the side-by-side figure too (again, purely for reference)
             display_comparison(
                 mri, partner, fused,
                 titles=['MRI', modality, panel],
-                save_path=f'{results_root}/{method}/figures/{name}.png',
+                save_path=f'{results_root}/{method}/comparisons/{name}.png',
                 show=show,
             )
             total += 1
@@ -80,6 +80,5 @@ def fuse_all_pairs(fusion_fn, method, data_root, results_root,
         print(f'  {subfolder}: fused {len(mri_files)} pairs')
 
     # quick summary once everything is done
-    print(f'[{method}] done — {total} fused images + figures under '
-          f'{results_root}/{method}/')
+    print(f'[{method}] done. {total} fused images + comparison images ')
     return total
