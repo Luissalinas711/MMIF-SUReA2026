@@ -22,5 +22,5 @@ Week 5 - Cleaning Up Repository
 Harvard Whole Brain Atlas (AANLIB)
 https://www.med.harvard.edu/AANLIB/home.html
 
-Source images are stored in Google Drive. Source images will not be committed to this repository. Only fused results will be stored here.
+Source images are stored in Google Drive. Source images will not be committed to this repository, unless alongside resulting fused image. Fused results will be stored here.
 See data/README.md for the Google Drive path and any download instructions.
