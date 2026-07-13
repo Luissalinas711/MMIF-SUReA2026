@@ -8,7 +8,7 @@ SUReA 2026 undergraduate research at CSUF comparing four multimodal medical imag
 
 ## Status
 
-Week 5 - Cleaning Up Repository
+Week 6 - DenseFuse Fusion
 
 ## Methods
 
