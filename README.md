@@ -50,3 +50,10 @@ Everything in this repository is designed for Google Colab.
 
 Requirements: Python 3, NumPy/SciPy, PyWavelets, scikit-image, PyTorch, Matplotlib.  
 Colab has most of these preinstalled; the startup cell installs the rest.  
+
+## References  
+- H. Li and X.-J. Wu, “DenseFuse: A Fusion Approach to Infrared and Visible Images,” IEEE Transactions on Image Processing, vol. 28, no. 5, pp. 2614–2623, 2019.  
+- G. Huang, Z. Liu, L. van der Maaten, and K. Q. Weinberger, “Densely Connected Convolutional Networks,” in Proc. IEEE CVPR, 2017, pp. 4700–4708.  
+- S. L. Brunton and J. N. Kutz, Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge, U.K.: Cambridge Univ. Press, 2019.  
+- S. Mallat, “A Theory for Multiresolution Signal Decomposition: The Wavelet Representation,” IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 11, no. 7, pp. 674–693, 1989.  
+- Burt, P. J., & Adelson, E. H. (1983). The Laplacian pyramid as a compact image code. IEEE Transactions on Communications, 31(4), 532-540. https://doi.org/10.1109/TCOM.1983.1095851  
