@@ -23,5 +23,5 @@ fuse_all_pairs(
     data_root=DATA,
     results_root=f'{REPO_PATH}/results',
     label='DenseFuse Fused',
-    show=True,
+    show=True, # set false to not display images in coding environment
 )
