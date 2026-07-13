@@ -16,6 +16,7 @@ Week 6 - DenseFuse Fusion
 2. Laplacian Pyramid Fusion
 3. Discrete Wavelet Transform (DWT) Fusion
 4. DenseFuse (Deep Learning)
+Note: DenseFuse's network and pretrained weights come from the authors' repo (hli1221/densefuse-pytorch), which 05_densefuse.py clones at runtime. It is intentionally not committed here.
 
 ## Dataset
 
