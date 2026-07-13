@@ -5,14 +5,14 @@
 # For every pair we save two things:
 #   results/<method>/fused/<name>.png     -> the fused image on its own
 #   results/<method>/figures/<name>.png   -> the MRI , source , fused figure (this is purely for reference)
-# Keeping them separate b/c the metrics step later needs the raw fused image.
+# Keeping them separate b/c the metrics step later needs the raw fused image
 
 import os
 from utils import load_image_pair, save_fused, display_comparison
 
-# The two images in a pair sit in the same folder and only differ by a piece of the filename (e.g. alzheimers_mri_010.png and alzheimers_tc_010.png).
-# To pair them I find the MRI file and swap the '_mri_' chunk for the partner's.
-# The '_mri_' chunk is the same for every folder, so it's just a constant.
+# The two images in a pair sit in the same folder and only differ by a piece of the filename (e.g. alzheimers_mri_010.png and alzheimers_tc_010.png)
+# To pair them I find the MRI file and swap the '_mri_' part for the partner's
+# The '_mri_' part is the same for every folder, so it's just a constant
 # The partner files are named by the TRACER, not the modality. SPECT files say 'tc' (technetium) and PET files say 'dg' (FDG), so I have to map each folder to that tracer token. 
 # The display name also acts as the output suffix (just lowercased), so no separate column needed for that.
 MRI_TOKEN = '_mri_'
@@ -80,5 +80,5 @@ def fuse_all_pairs(fusion_fn, method, data_root, results_root,
         print(f'  {subfolder}: fused {len(mri_files)} pairs')
 
     # quick summary once everything is done
-    print(f'[{method}] done. {total} fused images + comparison images ')
+    print(f'[{method}] done. {total} fused images + {total} comparison images ')
     return total
