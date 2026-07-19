@@ -59,5 +59,4 @@ def all_metrics(mri, partner, fused):
         'spatial_freq': spatial_frequency(fused),
         'SSIM_mri':     ssim_mri,
         'SSIM_partner': ssim_partner,
-        'Qabf':         q_abf(mri, partner, fused),
     }
