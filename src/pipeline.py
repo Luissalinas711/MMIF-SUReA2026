@@ -56,9 +56,7 @@ def fuse_all_pairs(fusion_fn, method, data_root, results_root,
         for mri_file in mri_files:
             # partner filename = same name but '_mri_' swapped for the tracer token
             partner_file = mri_file.replace(MRI_TOKEN, partner_tok)
-            # output name: alzheimers_mri_010.png -> alzheimers_010 ...  (see below for rest)
-            pair_name = mri_file.replace(MRI_TOKEN, '_').replace('.png', '')
-            name = f'{pair_name}_{suffix}'   # ... then add on _ct / _spect / _pet
+            name = mri_file.replace('.png', '').replace(MRI_TOKEN, f'{MRI_TOKEN}{suffix}_')
 
             # load both as grayscale [0,1], then run the fusion method
             mri, partner = load_image_pair(f'{folder}/{mri_file}',
