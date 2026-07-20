@@ -13,7 +13,7 @@ if not os.path.isfile(f'{DENSEFUSE_DIR}/net.py'):
 os.environ['DENSEFUSE_REPO'] = DENSEFUSE_DIR     
 
 from pipeline import fuse_all_pairs               
-from fusion.densefuse import densefuse_fuse       
+from fusion.densefuse_add import densefuse_fuse      
 
 
 # Run DenseFuse over every pair, just like the other methods
