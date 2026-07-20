@@ -14,7 +14,7 @@ This project implements four fusion methods, runs them all on the same brain-ima
 
 ## Status
 
-Week 6 - DenseFuse Fusion
+Week 8 - Metrics/Evaluation
 
 ## Methods
 
