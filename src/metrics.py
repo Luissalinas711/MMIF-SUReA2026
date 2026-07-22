@@ -76,7 +76,9 @@ def edge_preservation(mri, partner, fused):
         weaker_edge = np.minimum(fused_strength, source_strength)
         stronger_edge = np.maximum(fused_strength, source_strength) + epsilon
         strength_match = weaker_edge / stronger_edge
-        orientation_match = 1.0 - np.abs(source_orientation - fused_orientation) / (np.pi / 2.0)
+        orientation_gap = np.abs(source_orientation - fused_orientation) % (2.0 * np.pi)
+        orientation_gap = np.minimum(orientation_gap, 2.0 * np.pi - orientation_gap)   # now in [0, pi]
+        orientation_match = 1.0 - orientation_gap / (np.pi / 2.0)
         return strength_match * np.clip(orientation_match, 0, 1)
 
     kept_from_mri = fraction_kept(mri_strength, mri_orientation)
