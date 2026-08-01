@@ -1,4 +1,6 @@
-# Method 4: DenseFuse Fusion
+# Method 4: DenseFuse Fusion, addition rule
+# Note: originally only this fusion rule of DenseFuse was used. Fusion via norm method was decided at a later time.
+# Hence the choice of name being only "densefuse" rather than "densefuse_add"
 # Remember the MMIF Startup snippet first, then this cell, then MMIF Finish.
 import os
 
