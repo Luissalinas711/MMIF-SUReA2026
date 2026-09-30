@@ -1,4 +1,4 @@
-# Method 1. No transform at all, so the rules act straight on raw pixels.
+# Method 1: No transform at all, so the rules act straight on raw pixels.
 
 import numpy as np
 
