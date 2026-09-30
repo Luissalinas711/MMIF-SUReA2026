@@ -1,4 +1,4 @@
-# Method 4. SWT, 
+# Method 4: SWT
 # the same as the DWT without the downsampling, which is what makes it shift invariant. 
 
 import numpy as np
