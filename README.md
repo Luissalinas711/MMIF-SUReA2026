@@ -1,62 +1,158 @@
-# Multimodal Medical Image Fusion - SUReA 2026
-SUReA 2026 undergraduate research at CSUF comparing four multimodal medical image fusion methods (Simple Averaging, Laplacian Pyramids, Discrete Wavelet Transforms, DenseFuse) on Harvard Whole Brain Atlas medical images.
+# Multimodal Medical Image Fusion
 
-**Student:** Luis Rey Salinas Jr.  
-**Mentor:** Dr. Yoonsuk Choi  
-**School:** California State University, Fullerton  
-**Program:** Summer Undergraduate Research Academy, 2026  
+Undergraduate research at CSUF separating what the *representation* contributes to medical image
+fusion from what the *combination rule* contributes, using five transforms crossed with three rules
+on brain scans from the Harvard Whole Brain Atlas.
 
-## Overview  
-No single medical scanner captures everything a clinician needs.
-MRI resolves soft tissue,CT resolves bone, and PET/SPECT show metabolic or perfusion activity.
-Mulitmodal medical image fusion combines two registered scans into a single image that keeps the useful detail of both.  
-This project implements four fusion methods in five configurations (DenseFuse is run under two different fusion rules) applies all of them to the same brain-image pairs, and scores 150 fused images on seven quality metrics.   
-Every method is the same three-step move in a different representation: transform → combine → invert. What changes between them is the basis, and whether that basis is fixed or learned.
+**Student:** Luis Rey Salinas Jr.
+**Mentor:** Dr. Yoonsuk Choi
+**School:** California State University, Fullerton
+**Status:** Expanding on prior research from SUReA Summer 2026.
 
-## Methods
-1. Simple Pixel Averaging - no transform at all, just the elementwise mean. This is the baseline the others are measured against.  
-2. Laplacian Pyramid Fusion - Multi-scale basis. Blur and subtract into band-pass layers, keep the larger-magnitude coefficient at each scale, then invert back.  
-3. Discrete Wavelet Transform (DWT) Fusion (db2, two levels) - a fixed orthogonal basis. Average the coarse approximation, max-magnitude on the detail bands.  
-4. DenseFuse (Deep Learning) - a pretrained Convolutional Neural Network (CNN) autoencoder. Run under two fusion rules, addition and ℓ1-norm.  
+The summer version of this work, as submitted for the SUReA poster and report, is tagged:
+[`surea-2026`](../../releases/tag/surea-2026).
+Everything on `main` is the expanded study.
 
-The seven metrics for evaluating each fused image are entropy, mutual information, standard deviation, spatial frequency, SSIM to the MRI, SSIM to the partner modality, and edge preservation.  
+## Overview
 
-## How to Run 
-Everything in this repository is designed for Google Colab.
+No single medical scanner captures everything a clinician needs. MRI resolves soft tissue, CT resolves bone, and PET and SPECT show metabolic or perfusion activity with little anatomy of their own.
+Multimodal medical image fusion combines two registered scans into a single image that keeps the useful detail of both.
 
-1. Copy a notebook from notebooks/ into a Colab notebook.  
-2. Run the startup cell from src/colab_setup.py. It mounts Google Drive, clones this repo, and puts src/ on the path.  
-3. Run the notebook. Fused images and comparison figures are written to results/.
+Every fusion method here is the same three-step move in a different representation: transform, combine, invert. 
+The summer study compared four methods, but each method arrived locked to one combination rule, so a difference between two methods intertwined the effect of the representation with the effect of the rule. 
+This version separates them. Any of the five transforms pairs with any of the three rules, where every combination is measured identically.
+The question becomes which factor actually drives performance.
 
-Requirements: Python 3, NumPy/SciPy, PyWavelets, scikit-image, PyTorch, Matplotlib.  
-Colab has most of these preinstalled; the startup cell installs the rest.  
+## Transforms and rules
 
-## Results  
-Three core findings:
-A detail–fidelity trade-off establishes no clear winner - The Laplacian pyramid leads every sharpness and edge measure (standard deviation, spatial frequency, SSIM to the MRI, and edge preservation) while the blending methods (averaging and DenseFuse fusion via addition method) retain the most information from the second modality. No configuration performs best at either.  
-The SPECT wash-out - In MRI–SPECT pairings the Laplacian pyramid reaches 0.95 SSIM to the MRI but only 0.36 to the SPECT. The method that wins every detail metric is the worst choice when trying to retain functional signal from SPECT image; blending methods preserve it best, at roughly 0.55.  
-The fusion rule can matter more than the transform - Holding the DenseFuse network fixed and switching from addition to the ℓ1-norm rule gives +51% spatial frequency and +35% edge preservation, at a cost of −3% mutual information and −3% partner SSIM. Same weights, same encoder, same decoder, only the rule changed.  
-  
-Per-pairing evaluation metrics for every configuration are in results/  
+Five transforms, from no transform at all to a learned one:
 
-## Notes on DenseFuse   
+| Transform | Basis |
+| `averaging` | none, rules act on raw pixels |
+| `laplacian` | Laplacian pyramid, four levels |
+| `dwt` | Daubechies-2 wavelet, two levels |
+| `swt` | stationary wavelet, same wavelet and depth, no decimation |
+| `densefuse` | pretrained CNN autoencoder, inference only |
 
-DenseFuse (Li & Wu, 2019) is an autoencoder trained to reconstruct ordinary images. Because no ground-truth fused images exist, it never trains on fusing images. Instead, a fusion step is inserted between the encoder and decoder phases. We use the authors' pretrained model so no training is required. The authors' repo is cloned at runtime and intentionally not committed here.  
-`05a_densefuse_add.py` and `05b_densefuse_norm.py`fetches [`hli1221/densefuse-pytorch`](https://github.com/hli1221/densefuse-pytorch), which ships both the network and the pretrained grayscale weights.  
+Three rules, which are the same weighted combination with different weights:
 
-The two fusion rules compared here are: addition, which averages the two feature tensors, and the ℓ1-norm rule, which weights each source by its local feature activity. Because both share one fixed network (same weights, same encoder, same decoder) the difference between them isolates the fusion rule for comparative purposes. The two rules are run from separate notebooks, 05a_densefuse_add.py and 05b_densefuse_norm.py, writing to results/densefuse/ and results/densefuse_norm/. Note: the norm variation was a bonus addition to the overall work after many commits from all other methods, hence the naming of some DenseFuse addition files as purely 'densefuse' rather than 'densefuse_add'  
+| Rule | Weights |
+|---|---|
+| `average` | fixed and equal, never commits to a source |
+| `l1norm` | proportional to local activity, lightly commits |
+| `maxabs` | zero or one, completely commits |
+
+The rule therefore is singularly focused on controlling how strongly the fusion commits to one source at each coefficient location.
+In every transform/rule combination the rule applies to the detail bands only and the approximation band is always averaged, which keeps the rule meaning the same thing throughout.
+
+Fifteen combinations are formed, but only twelve distinct results arise.  
+This is because averaging coefficients in any linear basis and inverting is the same as averaging the images, so `averaging`, `laplacian`, `dwt` and `swt`under the `average` rule produce identical output. 
+This is verified on the real results at 8.9e-16 and used as a correctness check on the whole pipeline.
 
 ## Dataset
 
-Harvard Whole Brain Atlas (AANLIB)
-https://www.med.harvard.edu/AANLIB/home.html
+Harvard Whole Brain Atlas, [AANLIB](https://www.med.harvard.edu/AANLIB/home.html).
 
-Source images are stored in Google Drive. Source images will not be committed to this repository, unless alongside resulting fused image. Fused results will be stored here.
-See data/README.md for the Google Drive path and any download instructions.
+The atlas was scanned for every case holding both an MRI and a partner modality at the same slice index, rather than picking cases by hand.
+Three slices per case are sampled at even intervals across the middle of each case, since neighboring slices are near duplicates. 
 
-## References  
-- H. Li and X.-J. Wu, “DenseFuse: A Fusion Approach to Infrared and Visible Images,” IEEE Transactions on Image Processing, vol. 28, no. 5, pp. 2614–2623, 2019.  
-- G. Huang, Z. Liu, L. van der Maaten, and K. Q. Weinberger, “Densely Connected Convolutional Networks,” in Proc. IEEE CVPR, 2017, pp. 4700–4708.  
-- S. L. Brunton and J. N. Kutz, Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge, U.K.: Cambridge Univ. Press, 2019.  
-- S. Mallat, “A Theory for Multiresolution Signal Decomposition: The Wavelet Representation,” IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 11, no. 7, pp. 674–693, 1989.  
-- Burt, P. J., & Adelson, E. H. (1983). The Laplacian pyramid as a compact image code. IEEE Transactions on Communications, 31(4), 532-540. https://doi.org/10.1109/TCOM.1983.1095851  
+| Pairing | Pairs | Cases |
+| MRI-CT | 30 | 10 |
+| MRI-SPECT | 65 | 22 |
+| MRI-PET | 9 | 3 |
+| **Total** | **104** | **33 patients** |
+
+MRI-PET is limited to the three cases the atlas contains, so it is reported descriptively rather than tested.
+
+Source images and fused outputs live in Google Drive and are not committed, since the atlas has its own licensing. The results file is committed.
+
+## Metrics
+
+Seven measures: entropy, mutual information, standard deviation, spatial frequency, SSIM (to each source) and edge preservation.
+
+Edge preservation is the full Xydeas and Petrović Q^AB/F measure with the published constants, including the weight exponent L = 1.5. 
+Two implementation notes are in `src/metrics.py`: 
+the paper prints both sigmoid kappas as positive, which inverts the response given where kappa sits in their equations, 
+and the orientation difference is folded so that edges pi apart count as matching, since a boundary running dark to light in the MRI often runs light to dark in the partner.
+
+## Repository layout
+
+```
+src/
+  colab_setup.py        Colab startup and finish snippets
+  utils.py              load, save, display
+  coeffs.py             the Decomposition container, the base band policy, fuse()
+  rules.py              average, l1norm, maxabs
+  metrics.py            the seven metrics
+  pipeline.py           fuse_all_pairs, run_all_combinations, check_averaging_column
+  transforms/           one script per transform, each with forward() and inverse()
+notebooks/
+  01_download_images.py     build the dataset
+  01b_verify_dataset.py     check it before committing 
+  02_run_fusion_grid.py     all 15 combinations, 1560 fused images
+  03_run_evaluation.py      score everything into one long CSV
+results/
+  metrics_long.csv      one row per measurement, 10920 rows
+```
+
+
+## How to run
+
+Everything is written for Google Colab.
+
+1. Run the startup cell from `src/colab_setup.py`. It mounts Drive, clones this repo, and puts `src/` on the path.
+2. Run the notebooks in order. `01` builds the dataset, `01b` verifies it, `02` runs the grid, `03` writes the results file.
+
+`02` and `03` both expect `DATA`, `DRIVE_ROOT` and `REPO_PATH` from the startup cell. DO NOT forget the Startup cell.
+
+Requirements: Python 3, NumPy, SciPy, PyWavelets, scikit-image, Pillow. 
+PyTorch is needed only for the DenseFuse row; the other four transforms run without it.
+
+## Results so far
+
+Statistical testing is still to come, so these are means rather than tested differences.
+
+**The rule matters more than expected.** Within every transform the ordering is `maxabs` above `l1norm` above `average`, with no exceptions, and the spread is large.
+The Laplacian pyramid moves from 0.42 to 0.74 on edge preservation purely by changing the rule, which is wider than most gaps between transforms.
+
+**Shift invariance shows up.** The SWT beats the DWT on both selection rules in all three pairings, which is the decimation cost appearing in the results.
+
+**The detail leader is the Laplacian pyramid**, which tops edge preservation in every pairing under both selection rules.
+
+**A metric behaves oddly on asymmetric pairs.** On MRI-SPECT and MRI-PET, an unfused MRI scores higher on edge preservation than any of the fifteen configurations, while on MRI-CT it places near the bottom. 
+The MRI holds about 84 percent of the total edge weight on the functional pairings and only 41 percent on MRI-CT. 
+The measure rewards edges arriving intact without requiring that they arrive from both sources.
+
+## Notes on DenseFuse
+
+DenseFuse (Li and Wu, 2019) is an autoencoder trained to reconstruct ordinary images. 
+No ground truth fused image exists, so it never trains on fusing anything. 
+A fusion step is inserted between the encoder and decoder at test time instead. 
+The authors' pretrained weights are used, so there is no training here.
+
+`src/transforms/densefuse.py` calls the encoder and decoder directly and skips the network's own fusion step, because the fusion is one of the three rules now. 
+That is what turns DenseFuse from two fixed settings into a full row of the grid. The authors' repository,
+[`hli1221/densefuse-pytorch`](https://github.com/hli1221/densefuse-pytorch), ships both the network
+and the weights and is cloned at runtime rather than committed. Point `DENSEFUSE_REPO` at it.
+
+## References
+
+- C. S. Xydeas and V. Petrović, "Objective image fusion performance measure," *Electronics Letters*,
+  vol. 36, no. 4, pp. 308-309, 2000.
+- V. Petrović and C. S. Xydeas, "Gradient-based multiresolution image fusion," *IEEE Transactions on
+  Image Processing*, vol. 13, no. 2, pp. 228-237, 2004.
+- S. Li, B. Yang, and J. Hu, "Performance comparison of different multi-resolution transforms for
+  image fusion," *Information Fusion*, vol. 12, no. 2, pp. 74-84, 2011.
+- Z. Zhang and R. S. Blum, "A categorization of multiscale-decomposition-based image fusion schemes
+  with a performance study for a digital camera application," *Proceedings of the IEEE*, vol. 87,
+  no. 8, pp. 1315-1326, 1999.
+- H. Li and X.-J. Wu, "DenseFuse: A fusion approach to infrared and visible images," *IEEE
+  Transactions on Image Processing*, vol. 28, no. 5, pp. 2614-2623, 2019.
+- P. J. Burt and E. H. Adelson, "The Laplacian pyramid as a compact image code," *IEEE Transactions
+  on Communications*, vol. 31, no. 4, pp. 532-540, 1983.
+- S. Mallat, "A theory for multiresolution signal decomposition: the wavelet representation," *IEEE
+  Transactions on Pattern Analysis and Machine Intelligence*, vol. 11, no. 7, pp. 674-693, 1989.
+- Z. Wang, A. C. Bovik, H. R. Sheikh, and E. P. Simoncelli, "Image quality assessment: from error
+  visibility to structural similarity," *IEEE Transactions on Image Processing*, vol. 13, no. 4,
+  pp. 600-612, 2004.
+- K. A. Johnson and J. A. Becker, *The Whole Brain Atlas (AANLIB)*, Harvard Medical School.
