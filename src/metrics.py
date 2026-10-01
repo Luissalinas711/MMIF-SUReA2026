@@ -67,8 +67,8 @@ ORIENTATION_KAPPA = -22.0
 ORIENTATION_SIGMA = 0.8
 
 # Each pixel counts in proportion to how strong that source's edge is there, raised to this power.
-# 1 is what the paper uses
-EDGE_WEIGHT_POWER = 1.0
+# 1.5 is what is used by Xydeas and Petrović
+EDGE_WEIGHT_POWER = 1.5
 
 # Edge strength and orientation at every pixel.
 def sobel_edges(image):
