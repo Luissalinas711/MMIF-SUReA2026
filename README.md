@@ -28,6 +28,7 @@ The question becomes which factor actually drives performance.
 Five transforms, from no transform at all to a learned one:
 
 | Transform | Basis |
+|---|---|
 | `averaging` | none, rules act on raw pixels |
 | `laplacian` | Laplacian pyramid, four levels |
 | `dwt` | Daubechies-2 wavelet, two levels |
