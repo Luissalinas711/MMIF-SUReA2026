@@ -1,0 +1,116 @@
+# Scores every fused image against its two sources and writes one long CSV.
+# One row per measurement, so every table is a groupby on this file. 1560 images x 7 metrics = 10920 rows. 
+
+import csv
+import os
+
+import numpy as np
+from PIL import Image as PILImage
+
+from metrics import all_metrics
+from pipeline import MODALITIES, MRI_TOKEN
+from utils import load_image_pair
+
+
+# case21_mri_015.png became case21_mri_ct_015.png
+# 'spect' has to map back to '_tc_' to find the partner
+SOURCE_LOOKUP = {modality.lower(): (subfolder, partner_token)
+                 for subfolder, partner_token, modality in MODALITIES}
+
+
+def load_grayscale(path):
+    return np.array(PILImage.open(path).convert('L'), dtype=np.float32) / 255.0
+
+
+# laplacian__maxabs -> ('laplacian', 'maxabs', 0)
+# swt__l1norm__shift2 -> ('swt', 'l1norm', 2), for the misalignment test 
+def split_method(method_name):
+    parts = method_name.split('__')
+    shift = int(parts[2].replace('shift', '')) if len(parts) > 2 else 0
+    return parts[0], parts[1], shift
+
+
+def score_everything(data_root, results_root, output_path):
+    combinations = sorted(name for name in os.listdir(results_root) if '__' in name)
+    print(f'{len(combinations)} combinations found')
+
+    rows = []
+    missing = []
+
+    for subfolder, partner_token, modality in MODALITIES:
+        folder = f'{data_root}/{subfolder}'
+        if not os.path.isdir(folder):
+            print(f'  [skip] {folder} not found')
+            continue
+
+        suffix = modality.lower()
+        mri_files = sorted(f for f in os.listdir(folder)
+                           if MRI_TOKEN in f and f.endswith('.png'))
+
+        for mri_file in mri_files:
+            partner_file = mri_file.replace(MRI_TOKEN, partner_token)
+
+            # load the sources once per pair, not once per combination
+            mri, partner = load_image_pair(f'{folder}/{mri_file}',
+                                           f'{folder}/{partner_file}')
+
+            case = mri_file.partition(MRI_TOKEN)[0]
+            slice_number = mri_file.replace('.png', '').rpartition('_')[2]
+            fused_name = mri_file.replace('.png', '').replace(
+                MRI_TOKEN, f'{MRI_TOKEN}{suffix}_') + '.png'
+
+            for combination in combinations:
+                fused_path = f'{results_root}/{combination}/fused_only/{fused_name}'
+
+                if not os.path.exists(fused_path):
+                    missing.append(f'{combination}/{fused_name}')
+                    continue
+
+                transform, rule, shift = split_method(combination)
+                fused = load_grayscale(fused_path)
+
+                for metric_name, value in all_metrics(mri, partner, fused).items():
+                    rows.append({
+                        'case': case,
+                        'pairing': subfolder,
+                        'slice': slice_number,
+                        'transform': transform,
+                        'rule': rule,
+                        'shift_px': shift,
+                        'metric': metric_name,
+                        'value': value,
+                    })
+
+        print(f'  {subfolder}: {len(mri_files)} pairs scored')
+
+    with open(output_path, 'w', newline='') as handle:
+        writer = csv.DictWriter(handle, fieldnames=['case', 'pairing', 'slice', 'transform',
+                                                    'rule', 'shift_px', 'metric', 'value'])
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print(f'\n{len(rows)} rows written to {output_path}')
+    if missing:
+        print(f'  {len(missing)} fused images missing, first few: {missing[:3]}')
+
+    return rows
+
+
+# Quick look so a broken combination shows up now rather than later (yet another sanity check)
+def print_means(rows, metric='edge_preservation'):
+    by_combination = {}
+    for row in rows:
+        if row['metric'] == metric and row['shift_px'] == 0:
+            by_combination.setdefault((row['transform'], row['rule']), []).append(row['value'])
+
+    print(f'\n  mean {metric}')
+    for (transform, rule), values in sorted(by_combination.items()):
+        print(f'    {transform + " + " + rule:<26} {sum(values) / len(values):.4f}')
+
+
+if __name__ == '__main__':
+    RESULTS = f'{DRIVE_ROOT}/results_grid'
+    OUTPUT = f'{DRIVE_ROOT}/metrics_long.csv'
+
+    rows = score_everything(DATA, RESULTS, OUTPUT)
+    print_means(rows)
