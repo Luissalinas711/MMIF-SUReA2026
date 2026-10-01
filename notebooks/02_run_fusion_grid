@@ -1,0 +1,29 @@
+# Runs every transform and rule combination over the dataset. 15 combinations x 104 pairs = 1560 fused images
+# Writes to Drive, not /content, since that disappears when the session ends. 
+
+import os
+
+from pipeline import run_all_combinations, check_averaging_column
+
+# Only the DenseFuse row needs this
+def setup_densefuse(repo_path):
+    densefuse_repo = f'{repo_path}/densefuse-pytorch'
+
+    if not os.path.isdir(densefuse_repo):
+        os.system(f'git clone https://github.com/hli1221/densefuse-pytorch {densefuse_repo}')
+
+    os.environ['DENSEFUSE_REPO'] = densefuse_repo
+
+    has_network = os.path.isfile(f'{densefuse_repo}/net.py')
+    has_weights = os.path.isfile(f'{densefuse_repo}/models/densefuse_gray.model')
+    print(f'densefuse repo ready: network {has_network}, weights {has_weights}')
+
+
+if __name__ == '__main__':
+    RESULTS = f'{DRIVE_ROOT}/results_grid'
+
+    setup_densefuse(REPO_PATH)
+    run_all_combinations(DATA, RESULTS)
+
+    # the four linear transforms must match exactly under the average rule (another sanity check)
+    check_averaging_column(RESULTS)
