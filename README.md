@@ -58,6 +58,7 @@ The atlas was scanned for every case holding both an MRI and a partner modality 
 Three slices per case are sampled at even intervals across the middle of each case, since neighboring slices are near duplicates. 
 
 | Pairing | Pairs | Cases |
+|---|---|---|
 | MRI-CT | 30 | 10 |
 | MRI-SPECT | 65 | 22 |
 | MRI-PET | 9 | 3 |
