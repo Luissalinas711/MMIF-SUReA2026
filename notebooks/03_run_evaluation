@@ -1,5 +1,7 @@
 # Scores every fused image against its two sources and writes one long CSV.
-# One row per measurement, so every table is a groupby on this file. 1560 images x 7 metrics = 10920 rows. 
+# One row per measurement, so every table is a groupby on this file. 1560 images x 7 metrics = 10920 rows
+# The case number is on every row, which is why the filenames were renamed 
+# slices from one patient are near duplicates and the statistics need to know which rows share a person
 
 import csv
 import os
@@ -13,9 +15,15 @@ from utils import load_image_pair
 
 
 # case21_mri_015.png became case21_mri_ct_015.png
-# 'spect' has to map back to '_tc_' to find the partner
+# suffix is the display name, not the tracer, so we need 'spect' to map back to '_tc_' to find the partner
+
 SOURCE_LOOKUP = {modality.lower(): (subfolder, partner_token)
                  for subfolder, partner_token, modality in MODALITIES}
+
+# Each source scored as if it were the fused result. Not configurations, so they stay out of the
+# tests, but they belong in the results table: on the functional pairings the unfused MRI scores
+# higher on edge preservation than anything fused, and that is one of the paper's findings.
+REFERENCE_ROWS = [('unfused', 'mri'), ('unfused', 'partner')]
 
 
 def load_grayscale(path):
@@ -23,14 +31,34 @@ def load_grayscale(path):
 
 
 # laplacian__maxabs -> ('laplacian', 'maxabs', 0)
-# swt__l1norm__shift2 -> ('swt', 'l1norm', 2), for the misalignment test 
+# swt__l1norm__shift2 -> ('swt', 'l1norm', 2), for the misalignment test
 def split_method(method_name):
     parts = method_name.split('__')
     shift = int(parts[2].replace('shift', '')) if len(parts) > 2 else 0
     return parts[0], parts[1], shift
 
 
-def score_everything(data_root, results_root, output_path):
+# Shifting the partner leaves a black band on the top and left edges (bigger shift leaves a bigger band)
+# Scoring that straight would measure border growth instead of fusion quality
+# thus, the misalignment pass crops the same margin off every image at every shif (including shift 0)
+def crop(image, margin):
+    return image if margin == 0 else image[margin:, margin:]
+
+
+# Seven rows, one per metric. Pulled out b/c the fused images and the reference rows both need it.
+def metric_rows(case, pairing, slice_number, transform, rule, shift, mri, partner, fused):
+    return [{'case': case,
+             'pairing': pairing,
+             'slice': slice_number,
+             'transform': transform,
+             'rule': rule,
+             'shift_px': shift,
+             'metric': metric_name,
+             'value': value}
+            for metric_name, value in all_metrics(mri, partner, fused).items()]
+
+
+def score_everything(data_root, results_root, output_path, crop_margin=0):
     combinations = sorted(name for name in os.listdir(results_root) if '__' in name)
     print(f'{len(combinations)} combinations found')
 
@@ -51,8 +79,12 @@ def score_everything(data_root, results_root, output_path):
             partner_file = mri_file.replace(MRI_TOKEN, partner_token)
 
             # load the sources once per pair, not once per combination
+            # these stay unshifted even when scoring a shifted run
+            # this is because the question is how much quality is lost against a correctly aligned pair
             mri, partner = load_image_pair(f'{folder}/{mri_file}',
                                            f'{folder}/{partner_file}')
+            mri = crop(mri, crop_margin)
+            partner = crop(partner, crop_margin)
 
             case = mri_file.partition(MRI_TOKEN)[0]
             slice_number = mri_file.replace('.png', '').rpartition('_')[2]
@@ -67,19 +99,16 @@ def score_everything(data_root, results_root, output_path):
                     continue
 
                 transform, rule, shift = split_method(combination)
-                fused = load_grayscale(fused_path)
+                fused = crop(load_grayscale(fused_path), crop_margin)
 
-                for metric_name, value in all_metrics(mri, partner, fused).items():
-                    rows.append({
-                        'case': case,
-                        'pairing': subfolder,
-                        'slice': slice_number,
-                        'transform': transform,
-                        'rule': rule,
-                        'shift_px': shift,
-                        'metric': metric_name,
-                        'value': value,
-                    })
+                rows.extend(metric_rows(case, subfolder, slice_number, transform, rule, shift,
+                                        mri, partner, fused))
+
+            # the two reference rows, scored the same way as everything else
+            for transform, rule in REFERENCE_ROWS:
+                source = mri if rule == 'mri' else partner
+                rows.extend(metric_rows(case, subfolder, slice_number, transform, rule, 0,
+                                        mri, partner, source))
 
         print(f'  {subfolder}: {len(mri_files)} pairs scored')
 
@@ -96,7 +125,7 @@ def score_everything(data_root, results_root, output_path):
     return rows
 
 
-# Quick look so a broken combination shows up now rather than later (yet another sanity check)
+# Quick look so a broken combination shows up now rather than in the statistics.
 def print_means(rows, metric='edge_preservation'):
     by_combination = {}
     for row in rows:
