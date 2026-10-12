@@ -94,7 +94,7 @@ notebooks/
   02_run_fusion_grid.py     all 15 combinations, 1560 fused images
   03_run_evaluation.py      score everything into one long CSV
 results/
-  metrics_long.csv      one row per measurement, 10920 rows
+  metrics_long.csv      one row per measurement, 12,376 rows
 ```
 
 
