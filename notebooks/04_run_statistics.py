@@ -1,10 +1,6 @@
-# Tests the grid and writes the numbers required for the results section
-# Slices from one patient are near duplicates, so each patient's slices are averaged first and the tests run on those averages
-# That gives 10 patients for MRI-CT, 22 for MRI-SPECT and 3 for MRI-PET (not the initial 104 pairs)
-
-# the goal is to write two files: 
-# 1. the descriptive means, including the unfused references
-# 2. the test results
+# Tests the grid and writes the numbers the results section needs.
+# Patient level, so one patient counts once however many slices they contributed.
+# Writes two files: the descriptive means, including the unfused references, and the test results.
 
 import numpy as np
 import pandas as pd
@@ -13,7 +9,7 @@ from scipy.stats import friedmanchisquare, rankdata, wilcoxon
 ALPHA = 0.05
 
 # The four linear transforms give the same image under the average rule
-# so three of them are duplicates and only averaging__average is kept 
+# so three of them are duplicates and only averaging__average is kept
 # this means we have 15 cells, 12 distinct configurations
 CONFIGURATIONS = [
     'averaging__average',
@@ -24,7 +20,7 @@ CONFIGURATIONS = [
     'densefuse__average', 'densefuse__l1norm', 'densefuse__maxabs',
 ]
 
-# Fixed before looking at the numbers. 
+# Fixed before looking at the numbers.
 # Two comparisons ask whether dropping decimation helps
 # five ask whether soft selection differs from hard selection
 # Keeping the list short is what makes MRI-CT testable at all.
@@ -40,7 +36,8 @@ PLANNED_COMPARISONS = [
     ('densefuse__l1norm', 'densefuse__maxabs'),
 ]
 
-# Below this a comparison cannot clear the correction however large the effect, since the smallest two-sided Wilcoxon p at n patients is 2^(1-n) and n = 9 is the first value that beats 0.00714.
+# Below this a comparison cannot clear the correction however large the effect,
+# since the smallest two-sided Wilcoxon p at n patients is 2^(1-n) and n = 9 is the first value that beats 0.00714.
 # MRI-PET has 3 patients, where the floor is 0.25, so it is described and not tested
 MIN_PATIENTS_TO_TEST = 9
 
@@ -56,7 +53,7 @@ def configuration_name(frame):
     return frame['transform'] + '__' + frame['rule']
 
 
-# Patients down the rows, configurations across the columns. 
+# Patients down the rows, configurations across the columns.
 # Patients missing any configuration are dropped, b/c Friedman and Wilcoxon both need complete rows
 def build_matrix(patient_means, pairing, metric):
     subset = patient_means[(patient_means['pairing'] == pairing)
@@ -69,14 +66,14 @@ def build_matrix(patient_means, pairing, metric):
     return wide[present].dropna()
 
 
-# The effect size that goes with Friedman 
+# The effect size that goes with Friedman
 # 0 means every patient ranks the configurations differently,
 # 1 means they all rank them the same way
 def kendalls_w(chi_square, patients, configurations):
     return float(chi_square / (patients * (configurations - 1)))
 
 
-# The effect size that goes with Wilcoxon. 
+# The effect size that goes with Wilcoxon.
 # the sign says which configuration won and the magnitude says how consistently it wins across patients
 def rank_biserial(differences):
     nonzero = differences[differences != 0]
@@ -90,8 +87,8 @@ def rank_biserial(differences):
     return float((positive - negative) / (positive + negative))
 
 
-# Holm, applied within each metric and pairing. 
-# Multiply the smallest p by the number of tests, the next by one less, and so on 
+# Holm, applied within each metric and pairing.
+# Multiply the smallest p by the number of tests, the next by one less, and so on
 # then force the sequence to never decrease
 def holm_adjust(pvalues):
     count = len(pvalues)
@@ -207,10 +204,13 @@ def run(csv_path, summary_path, tests_path):
     print(f'\n{len(tests)} test results written to {tests_path}')
 
     return summary, tests
+
+
 # Holm values at the Wilcoxon floor are far below 0.0001, so fixed notation prints them as 0.0000.
 # Fixed where it is readable, scientific where it is not.
 def format_p(value):
     return f'{value:.4f}' if value >= 1e-4 else f'{value:.1e}'
+
 
 # One metric at a time, so any errors are visible and the source of error is clear
 def print_tests(tests, metric='edge_preservation'):
@@ -235,5 +235,6 @@ if __name__ == '__main__':
     summary, tests = run(f'{DRIVE_ROOT}/metrics_long.csv',
                          f'{DRIVE_ROOT}/statistics_summary.csv',
                          f'{DRIVE_ROOT}/statistics_tests.csv')
-for metric in tests['metric'].unique():
+
+    for metric in tests['metric'].unique():
         print_tests(tests, metric)
