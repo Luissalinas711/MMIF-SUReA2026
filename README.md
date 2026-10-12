@@ -133,10 +133,18 @@ A fusion step is inserted between the encoder and decoder at test time instead.
 The authors' pretrained weights are used, so there is no training here.
 
 `src/transforms/densefuse.py` calls the encoder and decoder directly and skips the network's own fusion step, because the fusion is one of the three rules now. 
-That is what turns DenseFuse from two fixed settings into a full row of the grid. The authors' repository,
-[`hli1221/densefuse-pytorch`](https://github.com/hli1221/densefuse-pytorch), ships both the network
-and the weights and is cloned at runtime rather than committed. Point `DENSEFUSE_REPO` at it.
+That is what turns DenseFuse from two fixed settings into a full row of the grid. 
+The authors' repository:
+[`hli1221/densefuse-pytorch`](https://github.com/hli1221/densefuse-pytorch)  
+This ships both the network and the weights and is cloned at runtime rather than committed, since it carries its own license. 
+Every DenseFuse result in this work comes from commit
+`4394b63e9295db1c6b7a5c3664551c90f0605f2b` 
+and the weights file `models/densefuse_gray.model` comes from:  
+    git clone https://github.com/hli1221/densefuse-pytorch.git  
+    git -C densefuse-pytorch checkout 4394b63e9295db1c6b7a5c3664551c90f0605f2b  
 
+Point `DENSEFUSE_REPO` at the absolute path of that clone.  
+  
 ## References
 
 - C. S. Xydeas and V. Petrović, "Objective image fusion performance measure," *Electronics Letters*,
