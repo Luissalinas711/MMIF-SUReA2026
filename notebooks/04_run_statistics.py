@@ -1,6 +1,7 @@
 # Tests the grid and writes the numbers the results section needs.
 # Patient level, so one patient counts once however many slices they contributed.
-# Writes two files: the descriptive means, including the unfused references, and the test results.
+# Writes two files: the descriptive means (including the unfused references) and the test results
+# Two comparison families, corrected separately
 
 import numpy as np
 import pandas as pd
@@ -12,12 +13,9 @@ ALPHA = 0.05
 # so three of them are duplicates and only averaging__average is kept
 # this means we have 15 cells, 12 distinct configurations
 CONFIGURATIONS = [
-    'averaging__average',
-    'averaging__l1norm', 'averaging__maxabs',
-    'laplacian__l1norm', 'laplacian__maxabs',
-    'dwt__l1norm', 'dwt__maxabs',
-    'swt__l1norm', 'swt__maxabs',
-    'densefuse__average', 'densefuse__l1norm', 'densefuse__maxabs',
+    'averaging__average', 'averaging__l1norm', 'averaging__maxabs', 'laplacian__l1norm',
+    'laplacian__maxabs', 'dwt__l1norm', 'dwt__maxabs', 'swt__l1norm',
+    'swt__maxabs', 'densefuse__average', 'densefuse__l1norm', 'densefuse__maxabs',
 ]
 
 # Fixed before looking at the numbers.
@@ -27,20 +25,35 @@ CONFIGURATIONS = [
 # With 10 patients the smallest two-sided Wilcoxon p is 0.00195, and Holm's strictest threshold over 7 tests is 0.05/7 = 0.00714.
 # Over all 66 pairs it would be 0.00076, which no MRI-CT comparison could clear
 PLANNED_COMPARISONS = [
-    ('swt__l1norm', 'dwt__l1norm'),
-    ('swt__maxabs', 'dwt__maxabs'),
-    ('averaging__l1norm', 'averaging__maxabs'),
-    ('laplacian__l1norm', 'laplacian__maxabs'),
-    ('dwt__l1norm', 'dwt__maxabs'),
-    ('swt__l1norm', 'swt__maxabs'),
+    ('swt__l1norm', 'dwt__l1norm'), ('swt__maxabs', 'dwt__maxabs'),
+    ('averaging__l1norm', 'averaging__maxabs'), ('laplacian__l1norm', 'laplacian__maxabs'),
+    ('dwt__l1norm', 'dwt__maxabs'), ('swt__l1norm', 'swt__maxabs'),
     ('densefuse__l1norm', 'densefuse__maxabs'),
 ]
 
+# Added after the planned set and corrected on its own
+# Completes all three pairwise rule contrasts in every transform
+# Eight of the ten start from averaging__average,
+# because the linear transforms collapse to one image under the average rule, so only DenseFuse has a baseline of its own.
+# Ten still fits. At 10 patients the floor is 0.00195 against 0.05/10 = 0.005
+POSTHOC_COMPARISONS = [
+    ('averaging__average', 'averaging__l1norm'),
+    ('averaging__average', 'averaging__maxabs'),
+    ('averaging__average', 'laplacian__l1norm'),
+    ('averaging__average', 'laplacian__maxabs'),
+    ('averaging__average', 'dwt__l1norm'),
+    ('averaging__average', 'dwt__maxabs'),
+    ('averaging__average', 'swt__l1norm'),
+    ('averaging__average', 'swt__maxabs'),
+    ('densefuse__average', 'densefuse__l1norm'),
+    ('densefuse__average', 'densefuse__maxabs'),
+]
+
 # Below this a comparison cannot clear the correction however large the effect,
-# since the smallest two-sided Wilcoxon p at n patients is 2^(1-n) and n = 9 is the first value that beats 0.00714.
+# since the smallest two-sided Wilcoxon p at n patients is 2^(1-n).
+# n = 9 gives 0.0039, which clears 0.05/7 and also the stricter 0.05/10 of the post hoc set.
 # MRI-PET has 3 patients, where the floor is 0.25, so it is described and not tested
 MIN_PATIENTS_TO_TEST = 9
-
 
 # Average each patient's slices so one patient counts once
 def average_within_patients(table, shift_px=0):
@@ -87,7 +100,7 @@ def rank_biserial(differences):
     return float((positive - negative) / (positive + negative))
 
 
-# Holm, applied within each metric and pairing.
+# Holm, applied within each metric, pairing and family.
 # Multiply the smallest p by the number of tests, the next by one less, and so on
 # then force the sequence to never decrease
 def holm_adjust(pvalues):
@@ -103,28 +116,11 @@ def holm_adjust(pvalues):
     return adjusted
 
 
-# Friedman across the 12 configurations, then the seven Wilcoxon comparisons
-def test_one_metric(wide, pairing, metric):
-    patients = len(wide)
-    columns = [wide[name].to_numpy() for name in wide.columns]
-
-    chi_square, friedman_p = friedmanchisquare(*columns)
-
-    results = [{
-        'pairing': pairing,
-        'metric': metric,
-        'test': 'friedman',
-        'comparison': f'{len(wide.columns)} configurations',
-        'patients': patients,
-        'statistic': float(chi_square),
-        'p_raw': float(friedman_p),
-        'p_holm': np.nan,              # Friedman is one test, nothing to correct against
-        'effect_size': kendalls_w(chi_square, patients, len(wide.columns)),
-        'effect_name': 'kendalls_w',
-    }]
-
-    comparisons = []
-    for first, second in PLANNED_COMPARISONS:
+# One family of Wilcoxon comparisons, corrected against itself only.
+# Keeping the families apart is what lets the planned set stay confirmatory.
+def test_family(wide, pairing, metric, comparisons, family):
+    rows = []
+    for first, second in comparisons:
         if first not in wide.columns or second not in wide.columns:
             continue
 
@@ -135,12 +131,13 @@ def test_one_metric(wide, pairing, metric):
         else:
             pvalue = float(wilcoxon(differences).pvalue)
 
-        comparisons.append({
+        rows.append({
             'pairing': pairing,
             'metric': metric,
             'test': 'wilcoxon',
+            'family': family,
             'comparison': f'{first} vs {second}',
-            'patients': patients,
+            'patients': len(wide),
             'statistic': float(np.median(differences)),
             'p_raw': pvalue,
             'p_holm': np.nan,
@@ -148,11 +145,37 @@ def test_one_metric(wide, pairing, metric):
             'effect_name': 'rank_biserial',
         })
 
-    adjusted = holm_adjust(np.array([row['p_raw'] for row in comparisons]))
-    for row, value in zip(comparisons, adjusted):
+    adjusted = holm_adjust(np.array([row['p_raw'] for row in rows]))
+    for row, value in zip(rows, adjusted):
         row['p_holm'] = float(value)
 
-    return results + comparisons
+    return rows
+
+
+# Friedman across the 12 configurations, then each comparison family in turn
+def test_one_metric(wide, pairing, metric):
+    patients = len(wide)
+    columns = [wide[name].to_numpy() for name in wide.columns]
+
+    chi_square, friedman_p = friedmanchisquare(*columns)
+
+    friedman = {
+        'pairing': pairing,
+        'metric': metric,
+        'test': 'friedman',
+        'family': 'omnibus',
+        'comparison': f'{len(wide.columns)} configurations',
+        'patients': patients,
+        'statistic': float(chi_square),
+        'p_raw': float(friedman_p),
+        'p_holm': np.nan,              # Friedman is one test, nothing to correct against
+        'effect_size': kendalls_w(chi_square, patients, len(wide.columns)),
+        'effect_name': 'kendalls_w',
+    }
+
+    return ([friedman]
+            + test_family(wide, pairing, metric, PLANNED_COMPARISONS, 'planned')
+            + test_family(wide, pairing, metric, POSTHOC_COMPARISONS, 'post hoc'))
 
 
 # Means and standard deviations at the patient level (unfused references included)
@@ -212,7 +235,8 @@ def format_p(value):
     return f'{value:.4f}' if value >= 1e-4 else f'{value:.1e}'
 
 
-# One metric at a time, so any errors are visible and the source of error is clear
+# One metric at a time, so any errors are visible and the source of error is clear.
+# The families print separately b/c each one carries its own correction.
 def print_tests(tests, metric='edge_preservation'):
     for pairing in tests['pairing'].unique():
         rows = tests[(tests['pairing'] == pairing) & (tests['metric'] == metric)]
@@ -224,11 +248,18 @@ def print_tests(tests, metric='edge_preservation'):
         print(f'  Friedman chi2 = {friedman["statistic"]:.2f}, '
               f'p = {friedman["p_raw"]:.2e}, Kendall W = {friedman["effect_size"]:.3f}')
 
-        print(f'  {"comparison":<42} {"median diff":>12} {"p (Holm)":>10} {"effect":>8}')
-        for _, row in rows[rows['test'] == 'wilcoxon'].iterrows():
-            mark = ' *' if row['p_holm'] < ALPHA else '  '
-            print(f'    {row["comparison"]:<40} {row["statistic"]:>12.4f} '
-                  f'{format_p(row["p_holm"]):>10} {row["effect_size"]:>8.3f}{mark}')
+        for family in ['planned', 'post hoc']:
+            block = rows[rows['family'] == family]
+            if block.empty:
+                continue
+
+            print(f'\n  {family}, Holm over {len(block)}')
+            print(f'  {"comparison":<42} {"median diff":>12} {"p (Holm)":>10} {"effect":>8}')
+
+            for _, row in block.iterrows():
+                mark = ' *' if row['p_holm'] < ALPHA else '  '
+                print(f'    {row["comparison"]:<40} {row["statistic"]:>12.4f} '
+                      f'{format_p(row["p_holm"]):>10} {row["effect_size"]:>8.3f}{mark}')
 
 
 if __name__ == '__main__':
