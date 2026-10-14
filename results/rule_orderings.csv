@@ -1,0 +1,8 @@
+metric,uses_sources,l1,maxabs,significant,comparisons
+MI,yes,6,4,10,10
+SSIM_mri,yes,8,2,5,10
+SSIM_partner,yes,8,2,8,10
+edge_preservation,yes,0,10,10,10
+entropy,no,7,3,7,10
+spatial_freq,no,0,10,10,10
+std,no,0,10,10,10

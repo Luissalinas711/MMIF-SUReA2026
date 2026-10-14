@@ -1,113 +1,253 @@
-pairing,metric,test,comparison,patients,statistic,p_raw,p_holm,effect_size,effect_name
-mri_ct,MI,friedman,12 configurations,10,106.55384615384617,8.917314036871438e-18,,0.9686713286713288,kendalls_w
-mri_ct,MI,wilcoxon,swt__l1norm vs dwt__l1norm,10,0.024686861858009612,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,MI,wilcoxon,swt__maxabs vs dwt__maxabs,10,0.13030379310916107,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,MI,wilcoxon,averaging__l1norm vs averaging__maxabs,10,-0.5872045723928896,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,MI,wilcoxon,laplacian__l1norm vs laplacian__maxabs,10,0.18161584982317103,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,MI,wilcoxon,dwt__l1norm vs dwt__maxabs,10,0.26271273978986764,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,MI,wilcoxon,swt__l1norm vs swt__maxabs,10,0.15367027568684954,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,MI,wilcoxon,densefuse__l1norm vs densefuse__maxabs,10,-0.19145022095652142,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,SSIM_mri,friedman,12 configurations,10,54.50769230769231,9.535116696227129e-08,,0.49552447552447554,kendalls_w
-mri_ct,SSIM_mri,wilcoxon,swt__l1norm vs dwt__l1norm,10,0.007115614262426184,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_mri,wilcoxon,swt__maxabs vs dwt__maxabs,10,0.020278278077601408,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_mri,wilcoxon,averaging__l1norm vs averaging__maxabs,10,0.02453805394714559,0.083984375,0.16796875,0.6363636363636364,rank_biserial
-mri_ct,SSIM_mri,wilcoxon,laplacian__l1norm vs laplacian__maxabs,10,0.009082136614000091,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_mri,wilcoxon,dwt__l1norm vs dwt__maxabs,10,0.015309902961295085,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_mri,wilcoxon,swt__l1norm vs swt__maxabs,10,0.0031274888583834315,0.037109375,0.111328125,0.7454545454545455,rank_biserial
-mri_ct,SSIM_mri,wilcoxon,densefuse__l1norm vs densefuse__maxabs,10,0.019246107834514192,0.083984375,0.16796875,0.6363636363636364,rank_biserial
-mri_ct,SSIM_partner,friedman,12 configurations,10,83.04615384615386,3.7903140275237175e-13,,0.7549650349650351,kendalls_w
-mri_ct,SSIM_partner,wilcoxon,swt__l1norm vs dwt__l1norm,10,0.008553835309403901,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_partner,wilcoxon,swt__maxabs vs dwt__maxabs,10,0.021446464460584347,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_partner,wilcoxon,averaging__l1norm vs averaging__maxabs,10,-0.015381663546657987,0.16015625,0.16796875,-0.5272727272727272,rank_biserial
-mri_ct,SSIM_partner,wilcoxon,laplacian__l1norm vs laplacian__maxabs,10,0.008711045888770919,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_partner,wilcoxon,dwt__l1norm vs dwt__maxabs,10,0.01727735450481349,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,SSIM_partner,wilcoxon,swt__l1norm vs swt__maxabs,10,0.0027633779818780346,0.013671875,0.041015625,0.8545454545454545,rank_biserial
-mri_ct,SSIM_partner,wilcoxon,densefuse__l1norm vs densefuse__maxabs,10,-0.01686677093608574,0.083984375,0.16796875,-0.6363636363636364,rank_biserial
-mri_ct,edge_preservation,friedman,12 configurations,10,101.40000000000003,9.428456116323739e-17,,0.9218181818181821,kendalls_w
-mri_ct,edge_preservation,wilcoxon,swt__l1norm vs dwt__l1norm,10,0.06222665309906,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,edge_preservation,wilcoxon,swt__maxabs vs dwt__maxabs,10,0.066983312368393,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,edge_preservation,wilcoxon,averaging__l1norm vs averaging__maxabs,10,-0.03538951277732849,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,edge_preservation,wilcoxon,laplacian__l1norm vs laplacian__maxabs,10,-0.049718429644902584,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,edge_preservation,wilcoxon,dwt__l1norm vs dwt__maxabs,10,-0.06780761977036792,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,edge_preservation,wilcoxon,swt__l1norm vs swt__maxabs,10,-0.07377486427625018,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,edge_preservation,wilcoxon,densefuse__l1norm vs densefuse__maxabs,10,-0.03938367962837219,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,entropy,friedman,12 configurations,10,95.21538461538466,1.5741785676155552e-15,,0.865594405594406,kendalls_w
-mri_ct,entropy,wilcoxon,swt__l1norm vs dwt__l1norm,10,0.001406177764230243,0.625,1.0,-0.2,rank_biserial
-mri_ct,entropy,wilcoxon,swt__maxabs vs dwt__maxabs,10,-0.027770402369354574,0.009765625,0.029296875,-0.8909090909090909,rank_biserial
-mri_ct,entropy,wilcoxon,averaging__l1norm vs averaging__maxabs,10,1.1941475719908934,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,entropy,wilcoxon,laplacian__l1norm vs laplacian__maxabs,10,0.0003817768270852895,0.6953125,1.0,-0.16363636363636364,rank_biserial
-mri_ct,entropy,wilcoxon,dwt__l1norm vs dwt__maxabs,10,-0.0562144867276726,0.00390625,0.01953125,-0.9636363636363636,rank_biserial
-mri_ct,entropy,wilcoxon,swt__l1norm vs swt__maxabs,10,-0.0397406573675001,0.00390625,0.01953125,-0.9636363636363636,rank_biserial
-mri_ct,entropy,wilcoxon,densefuse__l1norm vs densefuse__maxabs,10,0.1521111324774176,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,spatial_freq,friedman,12 configurations,10,104.55384615384617,2.22962668427322e-17,,0.9504895104895106,kendalls_w
-mri_ct,spatial_freq,wilcoxon,swt__l1norm vs dwt__l1norm,10,0.003895855198303884,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,spatial_freq,wilcoxon,swt__maxabs vs dwt__maxabs,10,-0.005786298463741929,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,spatial_freq,wilcoxon,averaging__l1norm vs averaging__maxabs,10,-0.008686554928620652,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,spatial_freq,wilcoxon,laplacian__l1norm vs laplacian__maxabs,10,-0.026390002419551195,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,spatial_freq,wilcoxon,dwt__l1norm vs dwt__maxabs,10,-0.027583954234917975,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,spatial_freq,wilcoxon,swt__l1norm vs swt__maxabs,10,-0.018440804133812577,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,spatial_freq,wilcoxon,densefuse__l1norm vs densefuse__maxabs,10,-0.011966971059640244,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,std,friedman,12 configurations,10,110.0,1.8319576337225776e-18,,1.0,kendalls_w
-mri_ct,std,wilcoxon,swt__l1norm vs dwt__l1norm,10,0.0011235574881235805,0.001953125,0.013671875,1.0,rank_biserial
-mri_ct,std,wilcoxon,swt__maxabs vs dwt__maxabs,10,-0.0009709174434343742,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,std,wilcoxon,averaging__l1norm vs averaging__maxabs,10,-0.035546953479448945,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,std,wilcoxon,laplacian__l1norm vs laplacian__maxabs,10,-0.020238523681958526,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,std,wilcoxon,dwt__l1norm vs dwt__maxabs,10,-0.006015184024969741,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,std,wilcoxon,swt__l1norm vs swt__maxabs,10,-0.00403796384731929,0.001953125,0.013671875,-1.0,rank_biserial
-mri_ct,std,wilcoxon,densefuse__l1norm vs densefuse__maxabs,10,-0.046948139866193145,0.001953125,0.013671875,-1.0,rank_biserial
-mri_spect,MI,friedman,12 configurations,22,233.99300699300693,6.221105583286469e-44,,0.9669132520372187,kendalls_w
-mri_spect,MI,wilcoxon,swt__l1norm vs dwt__l1norm,22,0.05745094788452043,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,MI,wilcoxon,swt__maxabs vs dwt__maxabs,22,0.09743447223024715,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,MI,wilcoxon,averaging__l1norm vs averaging__maxabs,22,-1.2364046118160672,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,MI,wilcoxon,laplacian__l1norm vs laplacian__maxabs,22,0.1758710256693914,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,MI,wilcoxon,dwt__l1norm vs dwt__maxabs,22,0.11145531167469414,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,MI,wilcoxon,swt__l1norm vs swt__maxabs,22,0.07381380460354592,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,MI,wilcoxon,densefuse__l1norm vs densefuse__maxabs,22,-0.3317816236697704,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,SSIM_mri,friedman,12 configurations,22,135.89510489510485,1.1116488627377354e-23,,0.561550020227706,kendalls_w
-mri_spect,SSIM_mri,wilcoxon,swt__l1norm vs dwt__l1norm,22,0.00598818107283966,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,SSIM_mri,wilcoxon,swt__maxabs vs dwt__maxabs,22,0.011775236812598289,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,SSIM_mri,wilcoxon,averaging__l1norm vs averaging__maxabs,22,0.007663814733951335,0.011472702026367188,0.03441810607910156,0.6047430830039525,rank_biserial
-mri_spect,SSIM_mri,wilcoxon,laplacian__l1norm vs laplacian__maxabs,22,-0.0034192454066905853,0.005275726318359375,0.0211029052734375,-0.6600790513833992,rank_biserial
-mri_spect,SSIM_mri,wilcoxon,dwt__l1norm vs dwt__maxabs,22,0.0004911216910501448,0.1054534912109375,0.1054534912109375,0.39920948616600793,rank_biserial
-mri_spect,SSIM_mri,wilcoxon,swt__l1norm vs swt__maxabs,22,-0.0053728293355916334,9.5367431640625e-07,4.76837158203125e-06,-0.9920948616600791,rank_biserial
-mri_spect,SSIM_mri,wilcoxon,densefuse__l1norm vs densefuse__maxabs,22,0.0071533764082726825,0.027535438537597656,0.05507087707519531,0.5335968379446641,rank_biserial
-mri_spect,SSIM_partner,friedman,12 configurations,22,140.17482517482517,1.5008122148677477e-24,,0.5792348147720049,kendalls_w
-mri_spect,SSIM_partner,wilcoxon,swt__l1norm vs dwt__l1norm,22,0.003714339834054392,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,SSIM_partner,wilcoxon,swt__maxabs vs dwt__maxabs,22,0.007854390761399155,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,SSIM_partner,wilcoxon,averaging__l1norm vs averaging__maxabs,22,0.022685397946040686,3.337860107421875e-06,6.67572021484375e-06,0.9683794466403162,rank_biserial
-mri_spect,SSIM_partner,wilcoxon,laplacian__l1norm vs laplacian__maxabs,22,0.02324611321781847,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,SSIM_partner,wilcoxon,dwt__l1norm vs dwt__maxabs,22,0.015545685706374102,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,SSIM_partner,wilcoxon,swt__l1norm vs swt__maxabs,22,0.011012711718088819,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,SSIM_partner,wilcoxon,densefuse__l1norm vs densefuse__maxabs,22,0.013151503458032898,0.0006937980651855469,0.0006937980651855469,0.7786561264822134,rank_biserial
-mri_spect,edge_preservation,friedman,12 configurations,22,199.23776223776213,1.0705671508312763e-36,,0.8232965381725708,kendalls_w
-mri_spect,edge_preservation,wilcoxon,swt__l1norm vs dwt__l1norm,22,0.054844458897908566,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,edge_preservation,wilcoxon,swt__maxabs vs dwt__maxabs,22,0.0701475441455841,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,edge_preservation,wilcoxon,averaging__l1norm vs averaging__maxabs,22,-0.05450101693471271,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,edge_preservation,wilcoxon,laplacian__l1norm vs laplacian__maxabs,22,-0.005618204673131344,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,edge_preservation,wilcoxon,dwt__l1norm vs dwt__maxabs,22,-0.003245999415715517,0.003239154815673828,0.003239154815673828,-0.691699604743083,rank_biserial
-mri_spect,edge_preservation,wilcoxon,swt__l1norm vs swt__maxabs,22,-0.015099575122197506,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,edge_preservation,wilcoxon,densefuse__l1norm vs densefuse__maxabs,22,-0.01698822776476544,1.430511474609375e-06,3.337860107421875e-06,-0.9841897233201581,rank_biserial
-mri_spect,entropy,friedman,12 configurations,22,217.23776223776213,1.9423862384465337e-40,,0.8976767034618269,kendalls_w
-mri_spect,entropy,wilcoxon,swt__l1norm vs dwt__l1norm,22,-0.034795688851932516,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,entropy,wilcoxon,swt__maxabs vs dwt__maxabs,22,-0.033790506641165896,9.5367431640625e-07,4.76837158203125e-06,-0.9920948616600791,rank_biserial
-mri_spect,entropy,wilcoxon,averaging__l1norm vs averaging__maxabs,22,0.4479480932763278,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
-mri_spect,entropy,wilcoxon,laplacian__l1norm vs laplacian__maxabs,22,0.07042211345185923,3.337860107421875e-06,1.33514404296875e-05,0.9683794466403162,rank_biserial
-mri_spect,entropy,wilcoxon,dwt__l1norm vs dwt__maxabs,22,0.003691171873124066,0.046160221099853516,0.09232044219970703,0.48616600790513836,rank_biserial
-mri_spect,entropy,wilcoxon,swt__l1norm vs swt__maxabs,22,0.0018781122031330533,0.23476219177246094,0.23476219177246094,0.2964426877470356,rank_biserial
-mri_spect,entropy,wilcoxon,densefuse__l1norm vs densefuse__maxabs,22,-0.05957296233288467,3.337860107421875e-05,0.00010013580322265625,-0.9051383399209486,rank_biserial
-mri_spect,spatial_freq,friedman,12 configurations,22,216.81818181818176,2.3752189016800585e-40,,0.8959429000751312,kendalls_w
-mri_spect,spatial_freq,wilcoxon,swt__l1norm vs dwt__l1norm,22,-0.00019111918906371608,0.007443428039550781,0.007443428039550781,-0.6363636363636364,rank_biserial
-mri_spect,spatial_freq,wilcoxon,swt__maxabs vs dwt__maxabs,22,-0.0023111316064993413,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,spatial_freq,wilcoxon,averaging__l1norm vs averaging__maxabs,22,-0.009433835123976064,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,spatial_freq,wilcoxon,laplacian__l1norm vs laplacian__maxabs,22,-0.01117483029762905,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,spatial_freq,wilcoxon,dwt__l1norm vs dwt__maxabs,22,-0.008474747960766131,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,spatial_freq,wilcoxon,swt__l1norm vs swt__maxabs,22,-0.006262262662251772,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,spatial_freq,wilcoxon,densefuse__l1norm vs densefuse__maxabs,22,-0.008781623095273972,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,std,friedman,12 configurations,22,239.13986013986005,5.2287326944672256e-45,,0.9881812402473555,kendalls_w
-mri_spect,std,wilcoxon,swt__l1norm vs dwt__l1norm,22,4.4768055280114405e-05,0.09173250198364258,0.09173250198364258,0.4150197628458498,rank_biserial
-mri_spect,std,wilcoxon,swt__maxabs vs dwt__maxabs,22,-0.00046266615390773425,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,std,wilcoxon,averaging__l1norm vs averaging__maxabs,22,-0.027072307964166015,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,std,wilcoxon,laplacian__l1norm vs laplacian__maxabs,22,-0.009021120766798701,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,std,wilcoxon,dwt__l1norm vs dwt__maxabs,22,-0.0018209914366403984,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,std,wilcoxon,swt__l1norm vs swt__maxabs,22,-0.001313256720701872,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
-mri_spect,std,wilcoxon,densefuse__l1norm vs densefuse__maxabs,22,-0.026830660800139156,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+pairing,metric,test,family,comparison,patients,statistic,p_raw,p_holm,effect_size,effect_name
+mri_ct,MI,friedman,omnibus,12 configurations,10,106.55384615384617,8.917314036871438e-18,,0.9686713286713288,kendalls_w
+mri_ct,MI,wilcoxon,planned,swt__l1norm vs dwt__l1norm,10,0.024686861858009612,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,MI,wilcoxon,planned,swt__maxabs vs dwt__maxabs,10,0.13030379310916107,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,MI,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,10,-0.5872045723928896,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,MI,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,10,0.18161584982317103,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,MI,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,10,0.26271273978986764,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,MI,wilcoxon,planned,swt__l1norm vs swt__maxabs,10,0.15367027568684954,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,MI,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,10,-0.19145022095652142,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs averaging__l1norm,10,0.18998816224046688,0.013671875,0.041015625,0.8545454545454545,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs averaging__maxabs,10,-0.2839023525031952,0.037109375,0.0546875,-0.7454545454545455,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,10,1.007301118631633,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,10,1.1789650804950231,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs dwt__l1norm,10,1.007468084880899,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs dwt__maxabs,10,1.2893239302246116,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs swt__l1norm,10,0.9921066739560205,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,averaging__average vs swt__maxabs,10,1.1541964051359945,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,10,0.4052560661728104,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,MI,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,10,0.1664051313233872,0.02734375,0.0546875,0.7818181818181819,rank_biserial
+mri_ct,SSIM_mri,friedman,omnibus,12 configurations,10,54.50769230769231,9.535116696227129e-08,,0.49552447552447554,kendalls_w
+mri_ct,SSIM_mri,wilcoxon,planned,swt__l1norm vs dwt__l1norm,10,0.007115614262426184,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,planned,swt__maxabs vs dwt__maxabs,10,0.020278278077601408,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,10,0.02453805394714559,0.083984375,0.16796875,0.6363636363636364,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,10,0.009082136614000091,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,10,0.015309902961295085,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,planned,swt__l1norm vs swt__maxabs,10,0.0031274888583834315,0.037109375,0.111328125,0.7454545454545455,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,10,0.019246107834514192,0.083984375,0.16796875,0.6363636363636364,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs averaging__l1norm,10,0.021756285397648123,0.00390625,0.03125,0.9636363636363636,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs averaging__maxabs,10,0.035773411222799756,0.009765625,0.068359375,0.8909090909090909,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,10,0.0031305165068997165,0.083984375,0.251953125,0.6363636363636364,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,10,0.009477775584395165,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs dwt__l1norm,10,0.005687278931154116,0.02734375,0.13671875,0.7818181818181819,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs dwt__maxabs,10,0.022400520262338353,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs swt__l1norm,10,-0.0012776835438030876,0.375,0.75,-0.34545454545454546,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,averaging__average vs swt__maxabs,10,0.001849805314580344,0.845703125,0.845703125,0.09090909090909091,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,10,0.014225040863689031,0.01953125,0.1171875,0.8181818181818182,rank_biserial
+mri_ct,SSIM_mri,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,10,0.026230503008964068,0.02734375,0.13671875,0.7818181818181819,rank_biserial
+mri_ct,SSIM_partner,friedman,omnibus,12 configurations,10,83.04615384615386,3.7903140275237175e-13,,0.7549650349650351,kendalls_w
+mri_ct,SSIM_partner,wilcoxon,planned,swt__l1norm vs dwt__l1norm,10,0.008553835309403901,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,planned,swt__maxabs vs dwt__maxabs,10,0.021446464460584347,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,10,-0.015381663546657987,0.16015625,0.16796875,-0.5272727272727272,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,10,0.008711045888770919,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,10,0.01727735450481349,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,planned,swt__l1norm vs swt__maxabs,10,0.0027633779818780346,0.013671875,0.041015625,0.8545454545454545,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,10,-0.01686677093608574,0.083984375,0.16796875,-0.6363636363636364,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs averaging__l1norm,10,-0.029629908376989755,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs averaging__maxabs,10,-0.04444333897272307,0.009765625,0.0390625,-0.8909090909090909,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,10,-0.007942677263406528,0.00390625,0.0234375,-0.9636363636363636,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,10,0.00014643709037520658,0.4921875,0.4921875,-0.2727272727272727,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs dwt__l1norm,10,0.011265973360479409,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs dwt__maxabs,10,0.027177252728255052,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs swt__l1norm,10,0.002428766475620181,0.193359375,0.392578125,0.4909090909090909,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,averaging__average vs swt__maxabs,10,0.004140216437805377,0.130859375,0.392578125,0.5636363636363636,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,10,-0.030993976073926344,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,SSIM_partner,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,10,-0.0460495487063613,0.005859375,0.029296875,-0.9272727272727272,rank_biserial
+mri_ct,edge_preservation,friedman,omnibus,12 configurations,10,101.40000000000003,9.428456116323739e-17,,0.9218181818181821,kendalls_w
+mri_ct,edge_preservation,wilcoxon,planned,swt__l1norm vs dwt__l1norm,10,0.06222665309906,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,planned,swt__maxabs vs dwt__maxabs,10,0.066983312368393,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,10,-0.03538951277732849,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,10,-0.049718429644902584,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,10,-0.06780761977036792,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,planned,swt__l1norm vs swt__maxabs,10,-0.07377486427625018,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,10,-0.03938367962837219,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs averaging__l1norm,10,-0.21010637780030567,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs averaging__maxabs,10,-0.2374093383550644,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,10,-0.2281151314576467,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,10,-0.2782996396223704,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs dwt__l1norm,10,-0.12238847215970358,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs dwt__maxabs,10,-0.19609059890111286,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs swt__l1norm,10,-0.1870017697413762,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,averaging__average vs swt__maxabs,10,-0.2609861095746358,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,10,-0.19333259761333466,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,edge_preservation,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,10,-0.23456663886706036,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,friedman,omnibus,12 configurations,10,95.21538461538466,1.5741785676155552e-15,,0.865594405594406,kendalls_w
+mri_ct,entropy,wilcoxon,planned,swt__l1norm vs dwt__l1norm,10,0.001406177764230243,0.625,1.0,-0.2,rank_biserial
+mri_ct,entropy,wilcoxon,planned,swt__maxabs vs dwt__maxabs,10,-0.027770402369354574,0.009765625,0.029296875,-0.8909090909090909,rank_biserial
+mri_ct,entropy,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,10,1.1941475719908934,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,entropy,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,10,0.0003817768270852895,0.6953125,1.0,-0.16363636363636364,rank_biserial
+mri_ct,entropy,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,10,-0.0562144867276726,0.00390625,0.01953125,-0.9636363636363636,rank_biserial
+mri_ct,entropy,wilcoxon,planned,swt__l1norm vs swt__maxabs,10,-0.0397406573675001,0.00390625,0.01953125,-0.9636363636363636,rank_biserial
+mri_ct,entropy,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,10,0.1521111324774176,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs averaging__l1norm,10,-0.36356637398024705,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs averaging__maxabs,10,0.7983527942801822,0.001953125,0.01953125,1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,10,-0.21680184214969733,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,10,-0.25418184374874375,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs dwt__l1norm,10,-0.4293871032330665,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs dwt__maxabs,10,-0.4757408428280554,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs swt__l1norm,10,-0.4255106106355957,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,averaging__average vs swt__maxabs,10,-0.4626429778116441,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,10,-0.28073010222852957,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,entropy,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,10,-0.12404350771718464,0.00390625,0.01953125,-0.9636363636363636,rank_biserial
+mri_ct,spatial_freq,friedman,omnibus,12 configurations,10,104.55384615384617,2.22962668427322e-17,,0.9504895104895106,kendalls_w
+mri_ct,spatial_freq,wilcoxon,planned,swt__l1norm vs dwt__l1norm,10,0.003895855198303884,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,planned,swt__maxabs vs dwt__maxabs,10,-0.005786298463741929,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,10,-0.008686554928620652,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,10,-0.026390002419551195,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,10,-0.027583954234917975,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,planned,swt__l1norm vs swt__maxabs,10,-0.018440804133812577,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,10,-0.011966971059640244,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs averaging__l1norm,10,-0.0391729393353065,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs averaging__maxabs,10,-0.0467945771912734,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,10,-0.03231398947536947,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,10,-0.06026358467837175,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs dwt__l1norm,10,-0.022335563475887006,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs dwt__maxabs,10,-0.04943874105811117,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs swt__l1norm,10,-0.02601615401605767,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,averaging__average vs swt__maxabs,10,-0.0434857023259004,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,10,-0.03598497621715067,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,spatial_freq,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,10,-0.048701197529832506,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,friedman,omnibus,12 configurations,10,110.0,1.8319576337225776e-18,,1.0,kendalls_w
+mri_ct,std,wilcoxon,planned,swt__l1norm vs dwt__l1norm,10,0.0011235574881235805,0.001953125,0.013671875,1.0,rank_biserial
+mri_ct,std,wilcoxon,planned,swt__maxabs vs dwt__maxabs,10,-0.0009709174434343742,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,std,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,10,-0.035546953479448945,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,std,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,10,-0.020238523681958526,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,std,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,10,-0.006015184024969741,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,std,wilcoxon,planned,swt__l1norm vs swt__maxabs,10,-0.00403796384731929,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,std,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,10,-0.046948139866193145,0.001953125,0.013671875,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs averaging__l1norm,10,-0.07647788524627691,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs averaging__maxabs,10,-0.11092059562603633,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,10,-0.015122753878434522,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,10,-0.03621411323547369,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs dwt__l1norm,10,-0.0036319841941197806,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs dwt__maxabs,10,-0.009813909729321835,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs swt__l1norm,10,-0.004828612009684291,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,averaging__average vs swt__maxabs,10,-0.009097745021184322,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,10,-0.060538428525129986,0.001953125,0.01953125,-1.0,rank_biserial
+mri_ct,std,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,10,-0.10724758108456933,0.001953125,0.01953125,-1.0,rank_biserial
+mri_spect,MI,friedman,omnibus,12 configurations,22,233.99300699300693,6.221105583286469e-44,,0.9669132520372187,kendalls_w
+mri_spect,MI,wilcoxon,planned,swt__l1norm vs dwt__l1norm,22,0.05745094788452043,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,planned,swt__maxabs vs dwt__maxabs,22,0.09743447223024715,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,22,-1.2364046118160672,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,MI,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,22,0.1758710256693914,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,22,0.11145531167469414,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,planned,swt__l1norm vs swt__maxabs,22,0.07381380460354592,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,22,-0.3317816236697704,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs averaging__l1norm,22,0.2353352585150823,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs averaging__maxabs,22,-1.011323201693799,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,22,1.078901750190629,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,22,1.255002610938487,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs dwt__l1norm,22,1.1598306320694276,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs dwt__maxabs,22,1.2674045968144494,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs swt__l1norm,22,1.1100588355453407,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,averaging__average vs swt__maxabs,22,1.1575931963851223,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,22,0.21763242231112656,9.059906005859375e-06,1.811981201171875e-05,0.9446640316205533,rank_biserial
+mri_spect,MI,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,22,-0.0861913324493151,0.0036711692810058594,0.0036711692810058594,-0.6837944664031621,rank_biserial
+mri_spect,SSIM_mri,friedman,omnibus,12 configurations,22,135.89510489510485,1.1116488627377354e-23,,0.561550020227706,kendalls_w
+mri_spect,SSIM_mri,wilcoxon,planned,swt__l1norm vs dwt__l1norm,22,0.00598818107283966,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,planned,swt__maxabs vs dwt__maxabs,22,0.011775236812598289,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,22,0.007663814733951335,0.011472702026367188,0.03441810607910156,0.6047430830039525,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,22,-0.0034192454066905853,0.005275726318359375,0.0211029052734375,-0.6600790513833992,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,22,0.0004911216910501448,0.1054534912109375,0.1054534912109375,0.39920948616600793,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,planned,swt__l1norm vs swt__maxabs,22,-0.0053728293355916334,9.5367431640625e-07,4.76837158203125e-06,-0.9920948616600791,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,22,0.0071533764082726825,0.027535438537597656,0.05507087707519531,0.5335968379446641,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs averaging__l1norm,22,-0.045071943874677,4.76837158203125e-06,1.430511474609375e-05,-0.9604743083003953,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs averaging__maxabs,22,-0.03979843030542829,0.0006937980651855469,0.0006937980651855469,-0.7786561264822134,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,22,-0.06603322060444955,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,22,-0.0714618675629024,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs dwt__l1norm,22,-0.03571024187374211,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs dwt__maxabs,22,-0.035049509980008,9.5367431640625e-07,4.76837158203125e-06,-0.9920948616600791,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs swt__l1norm,22,-0.04123249347181068,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,averaging__average vs swt__maxabs,22,-0.045977661965318606,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,22,-0.06349971921988479,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,SSIM_mri,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,22,-0.05534967424464249,1.5735626220703125e-05,3.147125244140625e-05,-0.9288537549407114,rank_biserial
+mri_spect,SSIM_partner,friedman,omnibus,12 configurations,22,140.17482517482517,1.5008122148677477e-24,,0.5792348147720049,kendalls_w
+mri_spect,SSIM_partner,wilcoxon,planned,swt__l1norm vs dwt__l1norm,22,0.003714339834054392,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,planned,swt__maxabs vs dwt__maxabs,22,0.007854390761399155,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,22,0.022685397946040686,3.337860107421875e-06,6.67572021484375e-06,0.9683794466403162,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,22,0.02324611321781847,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,22,0.015545685706374102,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,planned,swt__l1norm vs swt__maxabs,22,0.011012711718088819,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,22,0.013151503458032898,0.0006937980651855469,0.0006937980651855469,0.7786561264822134,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs averaging__l1norm,22,0.03733312173900055,3.337860107421875e-05,3.337860107421875e-05,0.9051383399209486,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs averaging__maxabs,22,0.057520462583542264,6.67572021484375e-06,2.002716064453125e-05,0.9525691699604744,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,22,0.055104053048494944,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,22,0.07768520924974354,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs dwt__l1norm,22,0.04367247875442415,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs dwt__maxabs,22,0.05842500624128005,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs swt__l1norm,22,0.04031860973273904,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,averaging__average vs swt__maxabs,22,0.05170088343031104,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,22,0.04453560036617915,1.430511474609375e-06,5.7220458984375e-06,0.9841897233201581,rank_biserial
+mri_spect,SSIM_partner,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,22,0.05631950460207813,9.059906005859375e-06,2.002716064453125e-05,0.9446640316205533,rank_biserial
+mri_spect,edge_preservation,friedman,omnibus,12 configurations,22,199.23776223776213,1.0705671508312763e-36,,0.8232965381725708,kendalls_w
+mri_spect,edge_preservation,wilcoxon,planned,swt__l1norm vs dwt__l1norm,22,0.054844458897908566,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,planned,swt__maxabs vs dwt__maxabs,22,0.0701475441455841,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,22,-0.05450101693471271,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,22,-0.005618204673131344,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,22,-0.003245999415715517,0.003239154815673828,0.003239154815673828,-0.691699604743083,rank_biserial
+mri_spect,edge_preservation,wilcoxon,planned,swt__l1norm vs swt__maxabs,22,-0.015099575122197506,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,22,-0.01698822776476544,1.430511474609375e-06,3.337860107421875e-06,-0.9841897233201581,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs averaging__l1norm,22,-0.23223370313644406,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs averaging__maxabs,22,-0.2941014220317204,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,22,-0.3320076415936152,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,22,-0.3378332803646723,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs dwt__l1norm,22,-0.20363073050975802,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs dwt__maxabs,22,-0.20548265675703686,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs swt__l1norm,22,-0.2605733722448349,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,averaging__average vs swt__maxabs,22,-0.2760549336671829,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,22,-0.29308759669462836,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,edge_preservation,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,22,-0.3083633879820506,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,entropy,friedman,omnibus,12 configurations,22,217.23776223776213,1.9423862384465337e-40,,0.8976767034618269,kendalls_w
+mri_spect,entropy,wilcoxon,planned,swt__l1norm vs dwt__l1norm,22,-0.034795688851932516,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,entropy,wilcoxon,planned,swt__maxabs vs dwt__maxabs,22,-0.033790506641165896,9.5367431640625e-07,4.76837158203125e-06,-0.9920948616600791,rank_biserial
+mri_spect,entropy,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,22,0.4479480932763278,4.76837158203125e-07,3.337860107421875e-06,1.0,rank_biserial
+mri_spect,entropy,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,22,0.07042211345185923,3.337860107421875e-06,1.33514404296875e-05,0.9683794466403162,rank_biserial
+mri_spect,entropy,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,22,0.003691171873124066,0.046160221099853516,0.09232044219970703,0.48616600790513836,rank_biserial
+mri_spect,entropy,wilcoxon,planned,swt__l1norm vs swt__maxabs,22,0.0018781122031330533,0.23476219177246094,0.23476219177246094,0.2964426877470356,rank_biserial
+mri_spect,entropy,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,22,-0.05957296233288467,3.337860107421875e-05,0.00010013580322265625,-0.9051383399209486,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs averaging__l1norm,22,-0.09695407767054398,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs averaging__maxabs,22,0.3347256585501257,4.76837158203125e-07,4.76837158203125e-06,1.0,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,22,0.0415372307456221,0.0025048255920410156,0.005009651184082031,0.7075098814229249,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,22,0.1252410640941113,9.5367431640625e-07,5.7220458984375e-06,0.9920948616600791,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs dwt__l1norm,22,-0.07506020738388619,2.384185791015625e-06,1.1920928955078125e-05,-0.9762845849802372,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs dwt__maxabs,22,-0.06983780076868085,2.384185791015625e-06,1.1920928955078125e-05,-0.9762845849802372,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs swt__l1norm,22,-0.0316964642055757,0.0008091926574707031,0.0024275779724121094,-0.7707509881422925,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,averaging__average vs swt__maxabs,22,-0.0339208972314895,0.003239154815673828,0.005009651184082031,-0.691699604743083,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,22,-0.11098672631030415,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,entropy,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,22,-0.16600620026088508,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,friedman,omnibus,12 configurations,22,216.81818181818176,2.3752189016800585e-40,,0.8959429000751312,kendalls_w
+mri_spect,spatial_freq,wilcoxon,planned,swt__l1norm vs dwt__l1norm,22,-0.00019111918906371608,0.007443428039550781,0.007443428039550781,-0.6363636363636364,rank_biserial
+mri_spect,spatial_freq,wilcoxon,planned,swt__maxabs vs dwt__maxabs,22,-0.0023111316064993413,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,22,-0.009433835123976064,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,22,-0.01117483029762905,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,22,-0.008474747960766131,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,planned,swt__l1norm vs swt__maxabs,22,-0.006262262662251772,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,22,-0.008781623095273972,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs averaging__l1norm,22,-0.018855824445684746,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs averaging__maxabs,22,-0.028656149283051487,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,22,-0.024493255962928166,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,22,-0.03583919194837412,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs dwt__l1norm,22,-0.021615806346138303,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs dwt__maxabs,22,-0.029876066992680233,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs swt__l1norm,22,-0.021418049931526177,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,averaging__average vs swt__maxabs,22,-0.027701709419488876,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,22,-0.019091580063104636,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,spatial_freq,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,22,-0.02823657045761745,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,friedman,omnibus,12 configurations,22,239.13986013986005,5.2287326944672256e-45,,0.9881812402473555,kendalls_w
+mri_spect,std,wilcoxon,planned,swt__l1norm vs dwt__l1norm,22,4.4768055280114405e-05,0.09173250198364258,0.09173250198364258,0.4150197628458498,rank_biserial
+mri_spect,std,wilcoxon,planned,swt__maxabs vs dwt__maxabs,22,-0.00046266615390773425,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,planned,averaging__l1norm vs averaging__maxabs,22,-0.027072307964166015,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,planned,laplacian__l1norm vs laplacian__maxabs,22,-0.009021120766798701,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,planned,dwt__l1norm vs dwt__maxabs,22,-0.0018209914366403984,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,planned,swt__l1norm vs swt__maxabs,22,-0.001313256720701872,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,planned,densefuse__l1norm vs densefuse__maxabs,22,-0.026830660800139156,4.76837158203125e-07,3.337860107421875e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs averaging__l1norm,22,-0.02473862717549004,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs averaging__maxabs,22,-0.05319845179716749,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs laplacian__l1norm,22,-0.010546170175075531,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs laplacian__maxabs,22,-0.02030031879742944,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs dwt__l1norm,22,-0.003480436901251452,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs dwt__maxabs,22,-0.005274824798107133,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs swt__l1norm,22,-0.003610817094643906,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,averaging__average vs swt__maxabs,22,-0.0049094284574190405,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,densefuse__average vs densefuse__l1norm,22,-0.02393042047818504,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
+mri_spect,std,wilcoxon,post hoc,densefuse__average vs densefuse__maxabs,22,-0.052116376658280714,4.76837158203125e-07,4.76837158203125e-06,-1.0,rank_biserial
