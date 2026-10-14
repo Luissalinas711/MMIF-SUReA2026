@@ -1,0 +1,15 @@
+metric,pairing,l1,maxabs,reversal,confirmed
+MI,mri_ct,3,2,True,True
+MI,mri_spect,3,2,True,True
+SSIM_mri,mri_ct,5,0,False,False
+SSIM_mri,mri_spect,3,2,True,True
+SSIM_partner,mri_ct,3,2,True,False
+SSIM_partner,mri_spect,5,0,False,False
+edge_preservation,mri_ct,0,5,False,False
+edge_preservation,mri_spect,0,5,False,False
+entropy,mri_ct,3,2,True,True
+entropy,mri_spect,4,1,True,True
+spatial_freq,mri_ct,0,5,False,False
+spatial_freq,mri_spect,0,5,False,False
+std,mri_ct,0,5,False,False
+std,mri_spect,0,5,False,False
