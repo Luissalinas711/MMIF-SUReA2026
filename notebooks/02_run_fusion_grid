@@ -22,4 +22,5 @@ if __name__ == '__main__':
     run_all_combinations(DATA, RESULTS)
 
     # the four linear transforms must match exactly under the average rule (another sanity check)
-    check_averaging_column(RESULTS)
+    # DATA not RESULTS, b/c it re-fuses a sample rather than reading the saved PNGs
+    check_averaging_column(DATA)
