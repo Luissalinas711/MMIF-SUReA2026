@@ -21,6 +21,6 @@ if __name__ == '__main__':
         raise RuntimeError('run the startup cell first, the DenseFuse row needs it')
     run_all_combinations(DATA, RESULTS)
 
-    # the four linear transforms must match exactly under the average rule (another sanity check)
+    # the four linear transforms must rebuild exactly under the average rule (another sanity check)
     # DATA not RESULTS, b/c it re-fuses a sample rather than reading the saved PNGs
     check_averaging_column(DATA)
