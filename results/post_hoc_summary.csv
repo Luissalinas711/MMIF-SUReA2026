@@ -1,0 +1,8 @@
+metric,comparisons,significant,below_averaging,below_and_significant
+MI,20,18,17,16
+SSIM_mri,20,13,9,3
+SSIM_partner,20,17,15,12
+edge_preservation,20,20,0,0
+entropy,20,20,4,4
+spatial_freq,20,20,0,0
+std,20,20,0,0

@@ -1,0 +1,22 @@
+metric,pairing,same_order,rho,under_l1,under_maxabs
+MI,mri_ct,True,0.9999999999999999,identity > DenseFuse > SWT > Laplacian > DWT,identity > DenseFuse > SWT > Laplacian > DWT
+MI,mri_pet,False,0.8999999999999998,identity > DenseFuse > Laplacian > SWT > DWT,identity > DenseFuse > SWT > Laplacian > DWT
+MI,mri_spect,False,0.8999999999999998,identity > DenseFuse > Laplacian > SWT > DWT,identity > DenseFuse > SWT > Laplacian > DWT
+SSIM_mri,mri_ct,False,0.8999999999999998,SWT > DWT > Laplacian > DenseFuse > identity,SWT > Laplacian > DWT > DenseFuse > identity
+SSIM_mri,mri_pet,False,0.8999999999999998,Laplacian > SWT > DenseFuse > DWT > identity,Laplacian > SWT > DWT > DenseFuse > identity
+SSIM_mri,mri_spect,False,0.8999999999999998,DenseFuse > Laplacian > identity > SWT > DWT,Laplacian > DenseFuse > identity > SWT > DWT
+SSIM_partner,mri_ct,True,0.9999999999999999,DenseFuse > identity > Laplacian > SWT > DWT,DenseFuse > identity > Laplacian > SWT > DWT
+SSIM_partner,mri_pet,True,0.9999999999999999,identity > DenseFuse > SWT > Laplacian > DWT,identity > DenseFuse > SWT > Laplacian > DWT
+SSIM_partner,mri_spect,False,0.6,SWT > identity > DWT > DenseFuse > Laplacian,SWT > DenseFuse > DWT > identity > Laplacian
+edge_preservation,mri_ct,False,0.7,Laplacian > identity > DenseFuse > SWT > DWT,Laplacian > SWT > identity > DenseFuse > DWT
+edge_preservation,mri_pet,False,0.8999999999999998,Laplacian > DenseFuse > identity > SWT > DWT,Laplacian > identity > DenseFuse > SWT > DWT
+edge_preservation,mri_spect,False,0.8999999999999998,Laplacian > DenseFuse > SWT > identity > DWT,Laplacian > DenseFuse > identity > SWT > DWT
+entropy,mri_ct,False,0.7999999999999999,DWT > DenseFuse > SWT > identity > Laplacian,DWT > SWT > DenseFuse > Laplacian > identity
+entropy,mri_pet,False,0.7,DenseFuse > identity > DWT > SWT > Laplacian,DenseFuse > DWT > SWT > identity > Laplacian
+entropy,mri_spect,False,0.39999999999999997,DenseFuse > identity > DWT > SWT > Laplacian,DenseFuse > DWT > SWT > Laplacian > identity
+spatial_freq,mri_ct,False,-0.19999999999999998,identity > DenseFuse > Laplacian > SWT > DWT,Laplacian > DWT > DenseFuse > identity > SWT
+spatial_freq,mri_pet,False,0.7,identity > DenseFuse > Laplacian > DWT > SWT,Laplacian > identity > DenseFuse > DWT > SWT
+spatial_freq,mri_spect,False,0.6,Laplacian > DWT > SWT > DenseFuse > identity,Laplacian > DWT > identity > DenseFuse > SWT
+std,mri_ct,False,0.8999999999999998,identity > DenseFuse > Laplacian > SWT > DWT,identity > DenseFuse > Laplacian > DWT > SWT
+std,mri_pet,True,0.9999999999999999,identity > DenseFuse > Laplacian > DWT > SWT,identity > DenseFuse > Laplacian > DWT > SWT
+std,mri_spect,False,0.8999999999999998,identity > DenseFuse > Laplacian > SWT > DWT,identity > DenseFuse > Laplacian > DWT > SWT

@@ -1,0 +1,4 @@
+pairing,best_fused,best_configuration,unfused_mri,configurations_below_mri,configurations,crossover
+mri_ct,0.676076477766037,laplacian__maxabs,0.4583961367607116,2,12,0.6585236371353875
+mri_pet,0.7825680375099182,laplacian__maxabs,0.8404050932990179,12,12,0.7802561014059421
+mri_spect,0.7676310882423864,laplacian__maxabs,0.836707158070622,12,12,0.7631813994540311
