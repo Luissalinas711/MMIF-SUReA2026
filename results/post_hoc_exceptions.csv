@@ -1,0 +1,13 @@
+metric,pairing,comparison,statistic,p_holm,significant
+MI,mri_ct,averaging__average vs averaging__maxabs,-0.2839023525031952,0.0546875,False
+MI,mri_spect,averaging__average vs averaging__maxabs,-1.011323201693799,4.76837158203125e-06,True
+MI,mri_spect,densefuse__average vs densefuse__maxabs,-0.0861913324493151,0.0036711692810058,True
+SSIM_partner,mri_ct,averaging__average vs averaging__l1norm,-0.0296299083769897,0.01953125,True
+SSIM_partner,mri_ct,averaging__average vs averaging__maxabs,-0.044443338972723,0.0390625,True
+SSIM_partner,mri_ct,averaging__average vs laplacian__l1norm,-0.0079426772634065,0.0234375,True
+SSIM_partner,mri_ct,densefuse__average vs densefuse__l1norm,-0.0309939760739263,0.01953125,True
+SSIM_partner,mri_ct,densefuse__average vs densefuse__maxabs,-0.0460495487063613,0.029296875,True
+entropy,mri_ct,averaging__average vs averaging__maxabs,0.7983527942801822,0.01953125,True
+entropy,mri_spect,averaging__average vs averaging__maxabs,0.3347256585501257,4.76837158203125e-06,True
+entropy,mri_spect,averaging__average vs laplacian__l1norm,0.0415372307456221,0.005009651184082,True
+entropy,mri_spect,averaging__average vs laplacian__maxabs,0.1252410640941113,5.7220458984375e-06,True
