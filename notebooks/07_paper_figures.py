@@ -1,23 +1,38 @@
-# Draws the two figures the paper prints. Run after 06.
+# Draws the three figures the paper prints. Run after 06.
+# Figure 3 also needs DATA and the fused PNGs 02 left in Drive, the other two only need CSVs
 import matplotlib
 matplotlib.use('Agg')
 from pathlib import Path
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
+from PIL import Image
 
 BLUE, ORANGE, INK, MUTED, GRID = '#2a78d6', '#eb6834', '#1a1a1a', '#6b6b6b', '#e3e3e1'
+
+# necessary font for submission (not required for replicating)
 plt.rcParams.update({'font.family': 'serif',
-                     'font.serif': ['Nimbus Roman', 'Times New Roman', 'DejaVu Serif'],
-                     'font.size': 7.5, 'axes.linewidth': 0.6})
+                     'font.serif': ['Nimbus Roman', 'Times New Roman','STIXGeneral', 'DejaVu Serif'],
+                     'font.size': 7.5, 'axes.linewidth': 0.6, 'pdf.fonttype': 42, 'mathtext.fontset': 'stix'})
 SHIFTS = [0, 1, 2, 4]
 
 # the paper's names, since the CSVs use the short ones and 'averaging' is the identity row
 TRANSFORM_NAMES = {'averaging': 'Identity', 'laplacian': 'Laplacian', 'dwt': 'DWT', 'swt': 'SWT', 'densefuse': 'DenseFuse'}
 RULE_NAMES = {'average': 'averaging', 'l1norm': r'$\ell_1$-norm', 'maxabs': 'max-magnitude'}
 
-# Figure 1 shows eight spreads in mean edge preservation. 
-# A rule spread varies the rule with  one transform held fixed, 
+# 02 wrote the grid here, one folder per cell with the fused images under fused_only
+RESULTS = f'{DRIVE_ROOT}/results_grid'
+
+# Figure 3 holds this transform fixed so its two rows can be compared.
+# Each case is the one closest to its pairing mean, picked before the images were viewed,
+# and the slice is the clearest of its three. Partner files carry the tracer, NOT the modality
+PANEL_TRANSFORM = 'laplacian'
+PANEL_ROWS = [('mri_ct', 'case37', 16, '_ct_'),
+              ('mri_spect', 'case4', 17, '_tc_')]
+
+# Figure 1 shows eight spreads in mean edge preservation.
+# A rule spread varies the rule with  one transform held fixed,
 # a transform spread varies the transform with one rule held fixed
 def read_spreads(path):
     cells = pd.read_csv(path)
@@ -46,6 +61,41 @@ def read_curves(path):
                                        .sort_values('shift_px')['value'].tolist()
                          for name in ('dwt', 'swt')}
     return curves
+
+# metrics_long holds the slice as a number while the filenames zero pad it,
+# so match on the value rather than rebuilding the padding
+def slice_file(folder, case, token, slice_number):
+    for path in sorted(Path(folder).glob(f'{case}{token}*.png')):
+        tail = path.stem.rpartition('_')[2]
+        if tail.isdigit() and int(tail) == slice_number:
+            return path
+    raise FileNotFoundError(f'no slice {slice_number} for {case}{token} in {folder}')
+
+# Figure 3 puts the two unfused sources beside the three rules, one row per pairing.
+# The scores are each slice's own Q, not the case means the tables report
+def read_panels(path):
+    scored = pd.read_csv(path)
+    edge = scored[(scored['metric'] == 'edge_preservation') & (scored['shift_px'] == 0)]
+
+    rows = []
+    for pairing, case, slice_number, token in PANEL_ROWS:
+        block = edge[(edge['pairing'] == pairing) & (edge['case'] == case)
+                     & (edge['slice'] == slice_number)]
+        score = block.set_index(['transform', 'rule'])['value']
+        suffix = pairing.split('_')[1]   # mri_spect -> spect, which is what 02 put in the name
+        sources = f'{DATA}/{pairing}'
+
+        panels = [('MRI', slice_file(sources, case, '_mri_', slice_number),
+                   score[('unfused', 'mri')]),
+                  (suffix.upper(), slice_file(sources, case, token, slice_number),
+                   score[('unfused', 'partner')])]
+        for rule in ('average', 'l1norm', 'maxabs'):
+            panels.append((RULE_NAMES[rule],
+                           slice_file(f'{RESULTS}/{PANEL_TRANSFORM}__{rule}/fused_only',
+                                      case, f'_mri_{suffix}_', slice_number),
+                           score[(PANEL_TRANSFORM, rule)]))
+        rows.append((pairing.replace('_', '-').upper(), panels))
+    return rows
 
 def bare(ax, sides=('top', 'right')):
     for side in sides:
@@ -110,8 +160,26 @@ def figure_two(EDGE):
 
     return save(figure, 'fig2')
 
+def figure_three(PANELS):
+    figure, axes = plt.subplots(len(PANELS), 5, figsize=(7.0, 3.35))
+    for row, (label, panels) in zip(axes, PANELS):
+        for ax, (name, path, score) in zip(row, panels):
+            # matplotlib resamples to the figure dpi for a vector backend, which was shrinking the slices to about 105 px.
+            # 'none' keeps the source pixels untouched
+            ax.imshow(np.asarray(Image.open(path).convert('L')),
+                      cmap='gray', vmin=0, vmax=255, interpolation='none')
+            ax.set_title(f'{name}\n{score:.4f}', fontsize=7, color=INK, pad=3)
+            ax.set_xticks([])
+            ax.set_yticks([])
+            bare(ax, ('top', 'right', 'bottom', 'left'))
+        row[0].set_ylabel(label, fontsize=8, color=INK, labelpad=6)
+    figure.subplots_adjust(wspace=0.05, hspace=0.34)
+
+    return save(figure, 'fig3')
+
 if __name__ == '__main__':
     rule, transform = read_spreads(f'{DRIVE_ROOT}/cell_means.csv')
     figure_one(rule, transform)
-    folder = figure_two(read_curves(f'{DRIVE_ROOT}/metrics_misalignment.csv'))
-    print(f'fig1 and fig2 written as pdf and 600 dpi png to {folder}')
+    figure_two(read_curves(f'{DRIVE_ROOT}/metrics_misalignment.csv'))
+    folder = figure_three(read_panels(f'{DRIVE_ROOT}/metrics_long.csv'))
+    print(f'fig1, fig2 and fig3 written as pdf and 600 dpi png to {folder}')
