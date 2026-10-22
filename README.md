@@ -1,13 +1,14 @@
 # Multimodal Medical Image Fusion
 
-Undergraduate research at CSUF separating what the *representation* contributes to medical image
-fusion from what the *combination rule* contributes, using five transforms crossed with three rules
-on brain scans from the Harvard Whole Brain Atlas.
+Undergraduate research at CSUF pulling apart two things that usually travel together in
+fusion work: the *representation* an image is converted into, and the *combination rule*
+that merges the two converted images. Five of the first crossed with three of the second,
+run on brain scans from Harvard's AANLIB archive.
 
 **Student:** Luis Rey Salinas Jr.
 **Mentor:** Dr. Yoonsuk Choi
 **School:** California State University, Fullerton
-**Status:** Expanding on prior research from SUReA Summer 2026.
+**Status:** Expanded study complete. Grid, statistics, shift experiment and figures are all in.
 
 The summer version of this work, as submitted for the SUReA poster and report, is tagged:
 [`surea-2026`](../../releases/tag/surea-2026).
@@ -15,13 +16,15 @@ Everything on `main` is the expanded study.
 
 ## Overview
 
-No single medical scanner captures everything a clinician needs. MRI resolves soft tissue, CT resolves bone, and PET and SPECT show metabolic or perfusion activity with little anatomy of their own.
-Multimodal medical image fusion combines two registered scans into a single image that keeps the useful detail of both.
+No scanner shows everything at once. 
+MRI is applied to read soft tissue, CT for bone, and PET and SPECT report metabolism or blood flow while showing almost no anatomy around it.
+Fusion is the attempt to put a pair of aligned scans into a single picture that still carries what each one was good for.
 
-Every fusion method here is the same three-step move in a different representation: transform, combine, invert. 
-The summer study compared four methods, but each method arrived locked to one combination rule, so a difference between two methods intertwined the effect of the representation with the effect of the rule. 
-This version separates them. Any of the five transforms pairs with any of the three rules, where every combination is measured identically.
-The question becomes which factor actually drives performance.
+Every method here is the same three steps wearing a different costume: convert, merge, convert back.
+The summer study lined up four published methods, but each one came welded to its own merging (fusion) step, 
+so any gap between two of them tangled the representation together with the fusion rule.
+This expanded work splits them. Every transform can be run against every rule, and all fifteen pairings are scored the same way, 
+which makes it possible to ask which half of the design isactually doing the work.
 
 ## Transforms and rules
 
@@ -43,19 +46,21 @@ Three rules, which are the same weighted combination with different weights:
 | `l1norm` | proportional to local activity, lightly commits |
 | `maxabs` | zero or one, completely commits |
 
-The rule therefore is singularly focused on controlling how strongly the fusion commits to one source at each coefficient location.
-In every transform/rule combination the rule applies to the detail bands only and the approximation band is always averaged, which keeps the rule meaning the same thing throughout.
+So the rules form a ladder, and what they climb is how willing the merge is to let one scan win a given coefficient outright. 
+Whichever rule is in play, it is handed the detail bands only; the approximation band gets a flat mean in every cell of the grid. 
+Pinning that down stops the rule from quietly meaning something different under each transform.
 
 Fifteen combinations are formed, but only twelve distinct results arise.  
-This is because averaging coefficients in any linear basis and inverting is the same as averaging the images, so `averaging`, `laplacian`, `dwt` and `swt`under the `average` rule produce identical output. 
+This is because averaging coefficients in any linear basis and inverting is the same as averaging the images, 
+so `averaging`, `laplacian`, `dwt` and `swt` under the `average` rule produce identical output. 
 This is verified on the real results at 8.9e-16 and used as a correctness check on the whole pipeline.
 
 ## Dataset
 
 Harvard Whole Brain Atlas, [AANLIB](https://www.med.harvard.edu/AANLIB/home.html).
 
-The atlas was scanned for every case holding both an MRI and a partner modality at the same slice index, rather than picking cases by hand.
-Three slices per case are sampled at even intervals across the middle of each case, since neighboring slices are near duplicates. 
+Rather than hand-pick cases, the atlas was swept for any case carrying both an MRI and a second modality at a matching slice index.
+Three slices come out of each case, spaced across its usable middle, because adjacent slices are close to copies of one another.
 
 | Pairing | Pairs | Cases |
 |---|---|---|
@@ -64,9 +69,10 @@ Three slices per case are sampled at even intervals across the middle of each ca
 | MRI-PET | 9 | 3 |
 | **Total** | **104** | **33 patients** |
 
-MRI-PET is limited to the three cases the atlas contains, so it is reported descriptively rather than tested.
+Only three MRI-PET cases exist in the atlas, which is too few for the signed-rank test to return anything significant, so that pairing gets described and never tested.
 
-Source images and fused outputs live in Google Drive and are not committed, since the atlas has its own licensing. The results file is committed.
+Source images and fused outputs live in Google Drive and are not committed, since the atlas has its own licensing. 
+Every results file is committed.
 
 ## Metrics
 
@@ -75,7 +81,8 @@ Seven measures: entropy, mutual information, standard deviation, spatial frequen
 Edge preservation is the full Xydeas and Petrović Q^AB/F measure with the published constants, including the weight exponent L = 1.5. 
 Two implementation notes are in `src/metrics.py`: 
 the paper prints both sigmoid kappas as positive, which inverts the response given where kappa sits in their equations, 
-and the orientation difference is folded so that edges pi apart count as matching, since a boundary running dark to light in the MRI often runs light to dark in the partner.
+and orientations are compared modulo pi, so an edge and its reversal are treated as the same edge.
+That second one matters because tissue boundaries routinely flip contrast intensity between the two modalities.
 
 ## Repository layout
 
@@ -86,15 +93,33 @@ src/
   coeffs.py             the Decomposition container, the base band policy, fuse()
   rules.py              average, l1norm, maxabs
   metrics.py            the seven metrics
+  evaluation.py         scores fused images against both sources into one long CSV
   pipeline.py           fuse_all_pairs, run_all_combinations, check_averaging_column
   transforms/           one script per transform, each with forward() and inverse()
 notebooks/
   01_download_images.py     build the dataset
-  01b_verify_dataset.py     check it before committing 
-  02_run_fusion_grid.py     all 15 combinations, 1560 fused images
-  03_run_evaluation.py      score everything into one long CSV
+  01b_verify_dataset        check it before committing
+  02_run_fusion_grid        all 15 combinations, 1560 fused images
+  03_run_evaluation         score everything into one long CSV
+  04_run_statistics.py      Friedman, Wilcoxon, Holm, effect sizes
+  05_run_misalignment.py    the shift experiment, 2080 fusions
+  06_rule_vs_transform.py   spreads, dominance verdicts, orderings, the post hoc set
+  07_paper_figures.py       the three figures, read back out of the CSVs
 results/
-  metrics_long.csv      one row per measurement, 12,376 rows
+  metrics_long.csv                one row per measurement, 12,376 rows
+  metrics_misalignment.csv        the same for the shift experiment, 16,016 rows
+  statistics_summary.csv          mean and std per configuration, by pairing and measure
+  statistics_tests.csv            14 Friedman, 98 planned and 140 post hoc Wilcoxon rows
+  cell_means.csv                  the 15 cells per measure, pooled over pairings
+  cell_means_by_pairing.csv       the same split by pairing
+  factor_verdicts.csv             both spread ranges and the dominant factor per measure
+  factor_verdicts_by_pairing.csv  the same within each pairing
+  transform_orderings.csv         whether the transform order survives a change of rule
+  rule_orderings.csv              which rule leads each measure, and how often
+  rule_reversals.csv              the measures where the better rule flips by transform
+  post_hoc_summary.csv            averaging against both selection rules, per measure
+  post_hoc_exceptions.csv         the 12 comparisons that run the other way
+  unfused_references.csv          unfused MRI against the best fused result per pairing
 ```
 
 
@@ -103,27 +128,50 @@ results/
 Everything is written for Google Colab.
 
 1. Run the startup cell from `src/colab_setup.py`. It mounts Drive, clones this repo, and puts `src/` on the path.
-2. Run the notebooks in order. `01` builds the dataset, `01b` verifies it, `02` runs the grid, `03` writes the results file.
+2. Work through the notebooks in numerical order. `01` assembles the dataset and `01b` audits it,
+   `02` fills the grid, `03` measures it, `04` tests it, `05` runs the shift experiment,
+   `06` derives the spreads and orderings, and `07` plots.
+3. Run the finish cell from `src/colab_setup.py` to push the CSVs back here.
 
-`02` and `03` both expect `DATA`, `DRIVE_ROOT` and `REPO_PATH` from the startup cell. DO NOT forget the Startup cell.
+Every notebook expects `DATA`, `DRIVE_ROOT` and `REPO_PATH` from the startup cell. DO NOT forget the Startup cell.
+
+Note that `07` is the one script that reaches past the CSVs: its third figure reads fused PNGs back out of Drive, 
+so `02` has to have run in the same Drive for it to work. 
+The first two figures need nothing but the committed results.
 
 Requirements: Python 3, NumPy, SciPy, PyWavelets, scikit-image, Pillow. 
 PyTorch is needed only for the DenseFuse row; the other four transforms run without it.
 
-## Results so far
+## Results
 
-Statistical testing is still to come, so these are means rather than tested differences.
+Patients, not slices, are the unit. Slices collapse to a case mean first, so one patient contributes a single number to any given cell. 
+Friedman screens each measure, then signed-rank tests run the seven planned contrasts, Holm-corrected inside their family.
 
-**The rule matters more than expected.** Within every transform the ordering is `maxabs` above `l1norm` above `average`, with no exceptions, and the spread is large.
-The Laplacian pyramid moves from 0.42 to 0.74 on edge preservation purely by changing the rule, which is wider than most gaps between transforms.
+**There is no single answer to which half matters more.**
+Two of the seven scores, edge preservation and spatial frequency, go to the rule outright. 
+This means its narrowest spread still clears the widest the transform manages.
+The other five land ambiguous, both ranges overlapping, so the honest answer there is that it depends on where in the grid you are standing.
 
-**Shift invariance shows up.** The SWT beats the DWT on both selection rules in all three pairings, which is the decimation cost appearing in the results.
+**The rules rank the same way everywhere; how far apart they sit does not.** 
+Pooled over patients, every transform puts `maxabs` over `l1norm` over `average` on edge preservation.
+Per patient that also appies in 163 of 175 cells, with the DWT on MRI-SPECT accounting for most of the misses. 
+The distance involved is another matter: the Laplacian pyramid travels from 0.42 to 0.74 on that measure without the transform changing at all, 
+which is a longer trip than most transform-to-transform gaps, while on standard deviation the same swap moves some transforms over ten times further than others. 
+On three measures the rules even trade places depending on which transform they are sitting under.
 
-**The detail leader is the Laplacian pyramid**, which tops edge preservation in every pairing under both selection rules.
+**The SWT wins, but not for the reason we expected.**
+Drop decimation and keep everything else identical and the SWT takes all sixteen contrasts on measures that look back at the sources,
+while losing eight of twelve on measures that only look at the output. 
+The shift experiment was built to pin that advantage on decimation directly, and it came back the wrong way round:
+the SWT stays ahead at every offset, but the two converge as the partner slides out of register instead of separating.
+Whatever the SWT is buying, it already owns it at perfect registration. 
+Aliasing fits better, since the lead only shows up under the two nonlinear rules, though this experiment cannot tell aliasing apart from shift variance.
 
-**A metric behaves oddly on asymmetric pairs.** On MRI-SPECT and MRI-PET, an unfused MRI scores higher on edge preservation than any of the fifteen configurations, while on MRI-CT it places near the bottom. 
-The MRI holds about 84 percent of the total edge weight on the functional pairings and only 41 percent on MRI-CT. 
-The measure rewards edges arriving intact without requiring that they arrive from both sources.
+**The edge metric does something strange on lopsided pairs.** 
+Feed the edge metric an untouched MRI from either functional pairing and it scores that above every one of the twelve configurations.
+On MRI-CT the same untouched MRI sinks near the bottom. 
+The split tracks edge weight: the MRI carries roughly 84 percent of it against SPECT and PET, and only 41 percent against CT. 
+The measure is rewarding edges that survive intact and asking nothing about whether both inputs contributed any.
 
 ## Notes on DenseFuse
 
