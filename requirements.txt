@@ -1,0 +1,12 @@
+# What the site needs. Streamlit Community Cloud installs these when it builds the app.
+streamlit
+numpy
+scipy
+PyWavelets
+scikit-image
+pillow
+pandas
+
+# The CPU build of PyTorch. The default Linux build bundles GPU libraries the host cannot use and is several times larger.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
