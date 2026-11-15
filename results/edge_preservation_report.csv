@@ -1,0 +1,13 @@
+,reference,mine_matched,mine_power_1,mine_no_fold,mine_published
+"mean score, fused images",0.5143,0.5142,0.5249,0.5822,0.5929
+mean difference from reference,0.0000,0.0004,0.0106,0.0679,0.0786
+largest difference from reference,0.0000,0.0074,0.0253,0.1298,0.1450
+mean rank correlation with reference,1.0000,0.9994,0.9971,0.9775,0.9705
+transforms with maxabs > l1norm > average,5 of 5,5 of 5,5 of 5,5 of 5,5 of 5
+smallest rule spread,0.1331,0.1332,0.1413,0.1906,0.2004
+largest transform spread,0.1284,0.1282,0.1172,0.1282,0.1257
+rule dominates,yes,yes,yes,yes,yes
+highest cell,"averaging, maxabs","averaging, maxabs","averaging, maxabs","laplacian, maxabs","laplacian, maxabs"
+"unfused MRI above, MRI-CT",8 of 12,8 of 12,7 of 12,2 of 12,2 of 12
+"unfused MRI above, MRI-SPECT",12 of 12,12 of 12,12 of 12,12 of 12,12 of 12
+"unfused MRI above, MRI-PET",12 of 12,12 of 12,12 of 12,12 of 12,12 of 12
