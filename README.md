@@ -9,9 +9,12 @@ run on brain scans from Harvard's AANLIB archive.
 **Mentor:** Dr. Yoonsuk Choi
 **School:** California State University, Fullerton
 **Status:** Expanded study complete. Grid, statistics, shift experiment and figures are all in.
+The revision for the conference paper added a formal interaction test and a check of the edge metric.
 
 The summer version of this work, as submitted for the SUReA poster and report, is tagged:
 [`surea-2026`](../../releases/tag/surea-2026).
+The code as it stood when the conference paper was submitted is tagged:
+[`ccwc-submission`](../../releases/tag/ccwc-submission).
 Everything on `main` is the expanded study.
 
 ## Overview
@@ -24,7 +27,7 @@ Every method here is the same three steps wearing a different costume: convert, 
 The summer study lined up four published methods, but each one came welded to its own merging (fusion) step, 
 so any gap between two of them tangled the representation together with the fusion rule.
 This expanded work splits them. Every transform can be run against every rule, and all fifteen pairings are scored the same way, 
-which makes it possible to ask which half of the design isactually doing the work.
+which makes it possible to ask which half of the design is actually doing the work.
 
 ## Transforms and rules
 
@@ -55,6 +58,24 @@ This is because averaging coefficients in any linear basis and inverting is the 
 so `averaging`, `laplacian`, `dwt` and `swt` under the `average` rule produce identical output. 
 This is verified on the real results at 8.9e-16 and used as a correctness check on the whole pipeline.
 
+## Settings
+
+Every setting was fixed before the grid was run and none was tuned on these images.
+
+| Setting | Value | Where it lives |
+|---|---|---|
+| Image size | 256 x 256, 8-bit grayscale scaled to [0, 1] | `notebooks/01_download_images.py` |
+| Laplacian pyramid | 4 levels, Gaussian blur sigma 1.0 | `src/transforms/laplacian.py` |
+| DWT and SWT | Daubechies-2 (`db2`), 2 levels | `src/transforms/dwt.py` |
+| `l1norm` activity window | 3 x 3 | `src/rules.py` |
+| Approximation band | always averaged | `src/coeffs.py` |
+| Edge preservation | L = 1.5, published constants | `src/metrics.py` |
+| DenseFuse | pretrained grayscale weights, commit `4394b63` | `src/colab_setup.py` |
+| Edge metric reference code | CDDFuse evaluator, commit `73681d2` | `notebooks/09_check_edge_preservation.py` |
+
+SPECT and PET slices are shown in color by the atlas and are converted to grayscale on download,
+so the functional scans are fused as luminance only.
+
 ## Dataset
 
 Harvard Whole Brain Atlas, [AANLIB](https://www.med.harvard.edu/AANLIB/home.html).
@@ -84,6 +105,11 @@ the paper prints both sigmoid kappas as positive, which inverts the response giv
 and orientations are compared modulo pi, so an edge and its reversal are treated as the same edge.
 That second one matters because tissue boundaries routinely flip contrast intensity between the two modalities.
 
+The implementation is checked in `09` against the evaluation code released with CDDFuse (Zhao et al., 2023).
+With that code's conventions matched, the two agree to within 0.0004 on average over the 1,560 fused images.
+That code sets the weight exponent to 1 where the published value is 1.5, which is where the remaining difference comes from;
+see the last note under Results.
+
 ## Repository layout
 
 ```
@@ -98,13 +124,15 @@ src/
   transforms/           one script per transform, each with forward() and inverse()
 notebooks/
   01_download_images.py     build the dataset
-  01b_verify_dataset        check it before committing
-  02_run_fusion_grid        all 15 combinations, 1560 fused images
-  03_run_evaluation         score everything into one long CSV
+  01b_verify_dataset.py     check it before committing
+  02_run_fusion_grid.py     all 15 combinations, 1560 fused images
+  03_run_evaluation.py      score everything into one long CSV
   04_run_statistics.py      Friedman, Wilcoxon, Holm, effect sizes
   05_run_misalignment.py    the shift experiment, 2080 fusions
   06_rule_vs_transform.py   spreads, dominance verdicts, orderings, the post hoc set
-  07_paper_figures.py       the three figures, read back out of the CSVs
+  07_paper_figures.py       the two figures in the paper
+  08_run_art_anova.py       ART ANOVA for the transform x rule interaction
+  09_check_edge_preservation.py   edge metric against a published implementation
 results/
   metrics_long.csv                one row per measurement, 12,376 rows
   metrics_misalignment.csv        the same for the shift experiment, 16,016 rows
@@ -120,6 +148,9 @@ results/
   post_hoc_summary.csv            averaging against both selection rules, per measure
   post_hoc_exceptions.csv         the 12 comparisons that run the other way
   unfused_references.csv          unfused MRI against the best fused result per pairing
+  art_anova.csv                   ART ANOVA, 84 rows: F, corrected p and partial eta squared
+  edge_preservation_check.csv     every image scored by the reference code and four versions of mine
+  edge_preservation_report.csv    the edge preservation findings under each of those scorings
 ```
 
 
@@ -131,16 +162,19 @@ Everything is written for Google Colab.
 2. Work through the notebooks in numerical order. `01` assembles the dataset and `01b` audits it,
    `02` fills the grid, `03` measures it, `04` tests it, `05` runs the shift experiment,
    `06` derives the spreads and orderings, and `07` plots.
+   `08` and `09` are the two checks added in revision and can be run in either order after `03`.
 3. Run the finish cell from `src/colab_setup.py` to push the CSVs back here.
 
 Every notebook expects `DATA`, `DRIVE_ROOT` and `REPO_PATH` from the startup cell. DO NOT forget the Startup cell.
 
-Note that `07` is the one script that reaches past the CSVs: its third figure reads fused PNGs back out of Drive, 
-so `02` has to have run in the same Drive for it to work. 
-The first two figures need nothing but the committed results.
+Note that `07` and `09` reach past the CSVs: the second figure and the edge metric check read source images
+and fused PNGs back out of Drive, so `02` has to have run in the same Drive for them to work.
+The first figure and `08` need nothing but the committed results.
 
-Requirements: Python 3, NumPy, SciPy, PyWavelets, scikit-image, Pillow. 
+Requirements: Python 3, NumPy, SciPy, pandas, PyWavelets, scikit-image, Pillow, Matplotlib.
 PyTorch is needed only for the DenseFuse row; the other four transforms run without it.
+`08` also needs statsmodels, and the reference code that `09` clones needs OpenCV and scikit-learn.
+Colab has all of these already. `requirements.txt` at the root covers the web app only.
 
 ## Results
 
@@ -154,7 +188,7 @@ The other five land ambiguous, both ranges overlapping, so the honest answer the
 
 **The rules rank the same way everywhere; how far apart they sit does not.** 
 Pooled over patients, every transform puts `maxabs` over `l1norm` over `average` on edge preservation.
-Per patient that also appies in 163 of 175 cells, with the DWT on MRI-SPECT accounting for most of the misses. 
+Per patient that also applies in 163 of 175 cells, with the DWT on MRI-SPECT accounting for most of the misses. 
 The distance involved is another matter: the Laplacian pyramid travels from 0.42 to 0.74 on that measure without the transform changing at all, 
 which is a longer trip than most transform-to-transform gaps, while on standard deviation the same swap moves some transforms over ten times further than others. 
 On three measures the rules even trade places depending on which transform they are sitting under.
@@ -172,6 +206,21 @@ Feed the edge metric an untouched MRI from either functional pairing and it scor
 On MRI-CT the same untouched MRI sinks near the bottom. 
 The split tracks edge weight: the MRI carries roughly 84 percent of it against SPECT and PET, and only 41 percent against CT. 
 The measure is rewarding edges that survive intact and asking nothing about whether both inputs contributed any.
+
+**A formal test agrees that the rule's effect depends on the transform.**
+An aligned rank transform ANOVA, with patient as the repeated-measures factor, finds the transform by rule interaction
+significant on all seven measures in both tested pairings. With the `average` rule left out, where four transforms
+give the same image, it stays significant in thirteen of the fourteen tests.
+On edge preservation and spatial frequency the rule's partial eta squared is larger than the transform's in both pairings.
+
+**Three edge preservation results depend on the weight exponent.**
+Scored with the exponent at 1, as in the CDDFuse code, most findings are unchanged:
+the rule order holds in all five transforms, the rule still dominates,
+and the untouched MRI still beats all twelve configurations on both functional pairings.
+Three things move. The margin by which the rule dominates narrows,
+the highest cell becomes the identity under `maxabs` instead of the Laplacian,
+and on MRI-CT the untouched MRI rises from above 2 of the 12 configurations to above 8.
+`results/edge_preservation_report.csv` has the full comparison. The orientation fold changes none of these.
 
 ## Notes on DenseFuse
 
@@ -191,7 +240,7 @@ and the weights file `models/densefuse_gray.model` comes from:
     git clone https://github.com/hli1221/densefuse-pytorch.git  
     git -C densefuse-pytorch checkout 4394b63e9295db1c6b7a5c3664551c90f0605f2b  
 
-Point `DENSEFUSE_REPO` at the absolute path of that clone.  
+Point `DENSEFUSE_REPO` at the path of that clone.  
   
 ## References
 
@@ -214,3 +263,8 @@ Point `DENSEFUSE_REPO` at the absolute path of that clone.
   visibility to structural similarity," *IEEE Transactions on Image Processing*, vol. 13, no. 4,
   pp. 600-612, 2004.
 - K. A. Johnson and J. A. Becker, *The Whole Brain Atlas (AANLIB)*, Harvard Medical School.
+- J. O. Wobbrock, L. Findlater, D. Gergle, and J. J. Higgins, "The aligned rank transform for
+  nonparametric factorial analyses using only ANOVA procedures," *Proc. SIGCHI Conference on Human
+  Factors in Computing Systems*, pp. 143-146, 2011.
+- Z. Zhao et al., "CDDFuse: Correlation-driven dual-branch feature decomposition for multi-modality
+  image fusion," *Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition*, 2023.
