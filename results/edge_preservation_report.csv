@@ -11,3 +11,7 @@ highest cell,"averaging, maxabs","averaging, maxabs","averaging, maxabs","laplac
 "unfused MRI above, MRI-CT",8 of 12,8 of 12,7 of 12,2 of 12,2 of 12
 "unfused MRI above, MRI-SPECT",12 of 12,12 of 12,12 of 12,12 of 12,12 of 12
 "unfused MRI above, MRI-PET",12 of 12,12 of 12,12 of 12,12 of 12,12 of 12
+"rule spread over transform spread, MRI-CT",1.289,1.291,1.456,1.632,1.721
+"rule spread over transform spread, MRI-SPECT",1.001,1.004,1.142,1.411,1.524
+"rule spread over transform spread, MRI-PET",0.881,0.882,1.009,1.355,1.485
+rule comparisons won by maxabs,8 of 10,8 of 10,9 of 10,9 of 10,10 of 10
