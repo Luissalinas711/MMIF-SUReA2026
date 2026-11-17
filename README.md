@@ -1,9 +1,8 @@
 # Multimodal Medical Image Fusion
 
-Undergraduate research at CSUF pulling apart two things that usually travel together in
-fusion work: the *representation* an image is converted into, and the *combination rule*
-that merges the two converted images. Five of the first crossed with three of the second,
-run on brain scans from Harvard's AANLIB archive.
+Undergraduate research at CSUF pulling apart two things that usually travel together in fusion work: 
+the representation an image is converted into, and the combination rule that merges the two converted images. 
+Five transforms crossed with three combination rules, run on brain scans from Harvard's AANLIB archive.
 
 **Student:** Luis Rey Salinas Jr.
 **Mentor:** Dr. Yoonsuk Choi
@@ -15,6 +14,8 @@ The summer version of this work, as submitted for the SUReA poster and report, i
 [`surea-2026`](../../releases/tag/surea-2026).
 The code as it stood when the conference paper was submitted is tagged:
 [`ccwc-submission`](../../releases/tag/ccwc-submission).
+The code and results behind the camera-ready paper are tagged:
+[`ccwc-camera-ready`](../../releases/tag/ccwc-camera-ready).
 Everything on `main` is the expanded study.
 
 ## Overview
@@ -35,7 +36,7 @@ Five transforms, from no transform at all to a learned one:
 
 | Transform | Basis |
 |---|---|
-| `averaging` | none, rules act on raw pixels |
+| `averaging` | none, rules act on raw pixels (the paper calls this the identity transform) |
 | `laplacian` | Laplacian pyramid, four levels |
 | `dwt` | Daubechies-2 wavelet, two levels |
 | `swt` | stationary wavelet, same wavelet and depth, no decimation |
@@ -56,7 +57,8 @@ Pinning that down stops the rule from quietly meaning something different under 
 Fifteen combinations are formed, but only twelve distinct results arise.  
 This is because averaging coefficients in any linear basis and inverting is the same as averaging the images, 
 so `averaging`, `laplacian`, `dwt` and `swt` under the `average` rule produce identical output. 
-This is verified on the real results at 8.9e-16 and used as a correctness check on the whole pipeline.
+This is verified on all 104 real pairs, where the largest difference is 9.99e-16 (floating point rounding),
+and used as a correctness check on the whole pipeline.
 
 ## Settings
 
@@ -107,8 +109,9 @@ That second one matters because tissue boundaries routinely flip contrast intens
 
 The implementation is checked in `09` against the evaluation code released with CDDFuse (Zhao et al., 2023).
 With that code's conventions matched, the two agree to within 0.0004 on average over the 1,560 fused images.
-That code sets the weight exponent to 1 where the published value is 1.5, which is where the remaining difference comes from;
-see the last note under Results.
+That code differs from mine in three conventions: it sets the weight exponent to 1 where the published value is 1.5,
+it does not fold the orientation difference, and it pads the image border with zeros where mine mirrors it.
+The exponent accounts for most of the remaining difference; see the last note under Results.
 
 ## Repository layout
 
@@ -122,6 +125,7 @@ src/
   evaluation.py         scores fused images against both sources into one long CSV
   pipeline.py           fuse_all_pairs, run_all_combinations, check_averaging_column
   transforms/           one script per transform, each with forward() and inverse()
+  fusion/               the four summer methods as first written, not used by the grid
 notebooks/
   01_download_images.py     build the dataset
   01b_verify_dataset.py     check it before committing
@@ -151,6 +155,7 @@ results/
   art_anova.csv                   ART ANOVA, 84 rows: F, corrected p and partial eta squared
   edge_preservation_check.csv     every image scored by the reference code and four versions of mine
   edge_preservation_report.csv    the edge preservation findings under each of those scorings
+app.py, registration.py, resize.py    a small Streamlit page that fuses an uploaded pair, separate from the study
 ```
 
 
@@ -213,14 +218,20 @@ significant on all seven measures in both tested pairings. With the `average` ru
 give the same image, it stays significant in thirteen of the fourteen tests.
 On edge preservation and spatial frequency the rule's partial eta squared is larger than the transform's in both pairings.
 
-**Three edge preservation results depend on the weight exponent.**
-Scored with the exponent at 1, as in the CDDFuse code, most findings are unchanged:
-the rule order holds in all five transforms, the rule still dominates,
+**Four edge preservation results depend on the weight exponent.**
+Scored with only the exponent changed to 1, the value in the CDDFuse code, most findings are unchanged:
+the rule order holds in all five transforms, the rule still dominates in MRI-CT and in MRI-SPECT,
 and the untouched MRI still beats all twelve configurations on both functional pairings.
-Three things move. The margin by which the rule dominates narrows,
+Four things move. The margin by which the rule dominates narrows,
 the highest cell becomes the identity under `maxabs` instead of the Laplacian,
-and on MRI-CT the untouched MRI rises from above 2 of the 12 configurations to above 8.
-`results/edge_preservation_report.csv` has the full comparison. The orientation fold changes none of these.
+on MRI-CT the untouched MRI rises from above 2 of the 12 configurations to above 7,
+and `maxabs` wins nine of the ten patient-level comparisons against `l1norm` instead of all ten
+(under the DWT on MRI-SPECT the difference is no longer significant).
+`results/edge_preservation_report.csv` has the full comparison.
+Removing the orientation fold on its own narrows the margin only slightly and leaves the highest cell
+and the MRI-CT count where they were, but it has the same effect on the patient-level comparisons: nine of ten.
+With both changed, as in the reference code, the MRI-CT count is 8,
+the rule and the transform are level in MRI-SPECT, and `maxabs` wins eight of the ten.
 
 ## Notes on DenseFuse
 
