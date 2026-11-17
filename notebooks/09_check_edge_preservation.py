@@ -20,7 +20,7 @@ import os
 import numpy as np
 import pandas as pd
 from scipy.ndimage import sobel
-from scipy.stats import spearmanr
+from scipy.stats import spearmanr, wilcoxon
 import metrics
 from evaluation import load_grayscale, pair_names, split_method
 from pipeline import MODALITIES, MRI_TOKEN
@@ -36,6 +36,15 @@ PAIRINGS = [('mri_ct', 'MRI-CT'), ('mri_spect', 'MRI-SPECT'), ('mri_pet', 'MRI-P
 
 # These three cells repeat averaging__average, so twelve of the fifteen are distinct (same as 04)
 DUPLICATE_CELLS = [('laplacian', 'average'), ('dwt', 'average'), ('swt', 'average')]
+
+# The seven planned comparisons of 04: SWT against DWT under each selection rule,
+# then l1norm against maxabs inside each transform. MRI-PET has too few patients to test
+PLANNED = [('swt', 'l1norm', 'dwt', 'l1norm'), ('swt', 'maxabs', 'dwt', 'maxabs'),
+           ('averaging', 'l1norm', 'averaging', 'maxabs'), ('laplacian', 'l1norm', 'laplacian', 'maxabs'),
+           ('dwt', 'l1norm', 'dwt', 'maxabs'), ('swt', 'l1norm', 'swt', 'maxabs'),
+           ('densefuse', 'l1norm', 'densefuse', 'maxabs')]
+TESTED_PAIRINGS = ['mri_ct', 'mri_spect']
+ALPHA = 0.05
 
 # Clone their repository if it is not there yet
 def fetch_reference(repo_path=REFERENCE_REPO):
@@ -159,6 +168,42 @@ def cell_means(scores, column):
     per_patient = scores.groupby(keys + ['pairing', 'case'], as_index=False)[column].mean()
     return per_patient.groupby(keys)[column].mean()
 
+# Holm correction, same as 04
+def holm_adjust(pvalues):
+    count = len(pvalues)
+    adjusted = np.empty(count)
+    running = 0.0
+    for position, index in enumerate(np.argsort(pvalues)):
+        running = max(running, (count - position) * pvalues[index])
+        adjusted[index] = min(running, 1.0)
+    return adjusted
+
+# 04's planned Wilcoxon family on one score column, patient by patient.
+# Counts how many of the ten l1norm against maxabs comparisons maxabs wins after Holm
+def rule_comparisons_won(scores, column):
+    won = 0
+    for pairing in TESTED_PAIRINGS:
+        rows = scores[scores['pairing'] == pairing]
+        # one row per patient, one column per configuration
+        patients = (rows.groupby(['case', 'transform', 'rule'])[column].mean()
+                        .unstack(['transform', 'rule']).dropna())
+
+        differences = []
+        for first, first_rule, second, second_rule in PLANNED:
+            difference = patients[(first, first_rule)] - patients[(second, second_rule)]
+            differences.append(difference.to_numpy())
+
+        pvalues = np.array([1.0 if np.all(d == 0) else float(wilcoxon(d).pvalue)
+                            for d in differences])
+        adjusted = holm_adjust(pvalues)
+
+        # the first two comparisons are SWT against DWT, the other five are the rule comparisons
+        for comparison, difference, pvalue in zip(PLANNED, differences, adjusted):
+            same_transform = comparison[0] == comparison[2]
+            if same_transform and pvalue < ALPHA and np.median(difference) < 0:
+                won += 1
+    return won
+
 # The report lines for one score column
 def report_column(scores, column):
     fused_images = scores[scores['transform'] != 'unfused']
@@ -194,6 +239,16 @@ def report_column(scores, column):
         fused = means.drop('unfused', level='transform').drop(DUPLICATE_CELLS, errors='ignore')
         above = int((fused < means[('unfused', 'mri')]).sum())
         lines[f'unfused MRI above, {label}'] = f'{above} of {len(fused)}'
+
+    # the dominance test again inside each pairing: above 1 means the rule dominates there
+    for pairing, label in PAIRINGS:
+        means = cell_means(scores[scores['pairing'] == pairing], column)
+        wide = means.drop('unfused', level='transform').unstack('rule')
+        rule_spread = (wide.max(axis=1) - wide.min(axis=1)).min()
+        transform_spread = (wide.max(axis=0) - wide.min(axis=0)).max()
+        lines[f'rule spread over transform spread, {label}'] = f'{rule_spread / transform_spread:.3f}'
+
+    lines['rule comparisons won by maxabs'] = f'{rule_comparisons_won(scores, column)} of 10'
     return lines
 
 if __name__ == '__main__':
