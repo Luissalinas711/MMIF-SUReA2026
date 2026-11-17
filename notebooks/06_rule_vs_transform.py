@@ -14,13 +14,12 @@ RULES = ['average', 'l1norm', 'maxabs']
 PAIRINGS = ['mri_ct', 'mri_spect', 'mri_pet']
 
 # The identity row applies the rule to raw pixels, which is a pixel-wise max rather than coefficient selection
-# thus it sits at the extreme (moslty)
+# thus it sits at the extreme (mostly)
 FIXED_BASES = ['laplacian', 'dwt', 'swt']
 
 # Measures that compare the fused image against the sources.
 # The other three are computed on the fused image alone.
-# This split is for the SWT against DWT result and is not the same split as the rule axis,
-# which is why both are printed.
+# This split is for the SWT against DWT result and is not the same split as the rule axis, which is why both are printed.
 SOURCE_REFERENCED = ['MI', 'SSIM_mri', 'SSIM_partner', 'edge_preservation']
 
 # matches the planned comparisons that hold the transform fixed and vary the rule
@@ -36,8 +35,8 @@ PAPER_NAMES = {'averaging': 'identity', 'laplacian': 'Laplacian', 'dwt': 'DWT',
 #  Same twelve tests from 04 notebook
 DUPLICATE_CELLS = ['laplacian__average', 'dwt__average', 'swt__average']
 
-# A swap only counts as a reordering when the two cells were this far apart, measured as a
-# share of the block range. Below it they were near tied and the order never meant much
+# A swap only counts as a reordering when the two cells were this far apart, measured as a share of the block range.
+# Below it they were near tied and the order never meant much
 MEANINGFUL = 0.05
 
 # Li et al. compare multi-resolution transforms, so the three fixed bases are their own class.
@@ -46,7 +45,7 @@ TRANSFORM_SETS = {'all five': TRANSFORMS,
                   'without the identity': ['laplacian', 'dwt', 'swt', 'densefuse'],
                   'three fixed bases': FIXED_BASES}
 
-# The partner term in the Table VI model, and the MRI term at the sigmoid ceiling.
+# The partner term in the Table V model, and the MRI term at the sigmoid ceiling.
 # score = ceiling * share + partner * (1 - share), so the crossover is where that line meets the best fused score
 SIGMOID_CEILING = 0.9748
 PARTNER_TERM = 0.10
@@ -262,7 +261,7 @@ def post_hoc_exceptions(post, summary):
                          'significant': row.p_holm < ALPHA})
     return pd.DataFrame(rows)
 
-# III-F quotes a crossover for each pairing but never the best fused score it is measured against so a reader cannot check it.
+# Table V gives a crossover for each pairing next to the best fused score it is measured against, so a reader can check it.
 # Reads 04's descriptive summary rather than recomputing
 def unfused_references(summary_path):
     summary = pd.read_csv(summary_path)
