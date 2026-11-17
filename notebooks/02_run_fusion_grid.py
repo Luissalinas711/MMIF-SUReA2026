@@ -22,5 +22,6 @@ if __name__ == '__main__':
     run_all_combinations(DATA, RESULTS)
 
     # the four linear transforms must rebuild exactly under the average rule (another sanity check)
-    # DATA not RESULTS, b/c it re-fuses a sample rather than reading the saved PNGs
-    check_averaging_column(DATA)
+    # DATA not RESULTS, b/c it re-fuses the pairs rather than reading the saved PNGs
+    # sample_pairs=None checks all 104 pairs, which is what the paper reports
+    check_averaging_column(DATA, sample_pairs=None)
