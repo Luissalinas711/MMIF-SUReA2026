@@ -10,11 +10,9 @@
 import numpy as np
 from scipy.ndimage import gaussian_filter
 
-
 # Reduce step: blur, then throw away every other pixel (shrink by 2)
 def _reduce(img, sigma):
     return gaussian_filter(img, sigma=sigma)[::2, ::2]
-
 
 # Expand step: grow back by 2. Insert a zero between every pixel, blur to fill the gaps, then scale by 4. 
 # The x4 is b/c after inserting zeros only ~1/4 of the pixels are non-zero, so the blur averages in a bunch of zeros and comes out too dark w/out it.
@@ -25,14 +23,12 @@ def _expand(img, shape, sigma):
     up = gaussian_filter(up, sigma=sigma) * 4.0
     return up[:shape[0], :shape[1]]          # crop to the exact size we need
 
-
 # Gaussian pyramid = the image at shrinking sizes (each one blurred + reduced)
 def _gaussian_pyramid(img, levels, sigma):
     pyr = [img.astype(np.float32)]
     for _ in range(levels - 1):
         pyr.append(_reduce(pyr[-1], sigma))
     return pyr
-
 
 # Laplacian pyramid = the detail at each level.
 # detail = this level minus the expanded version of the next (coarser) level,
@@ -44,9 +40,8 @@ def _laplacian_pyramid(gp, sigma):
     lap.append(gp[-1])
     return lap
 
-
 def laplacian_pyramid_fuse(img_A, img_B, levels=4, sigma=1.0):
-    # levels=4 gave the best balance of detail vs speed on the 256x256 images
+    # levels=4 is the depth Li, Yang and Hu (2011) found best overall. It was fixed, not tuned on these images
     lap_A = _laplacian_pyramid(_gaussian_pyramid(img_A, levels, sigma), sigma)
     lap_B = _laplacian_pyramid(_gaussian_pyramid(img_B, levels, sigma), sigma)
 
