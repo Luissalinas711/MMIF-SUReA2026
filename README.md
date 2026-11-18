@@ -1,22 +1,22 @@
-# Multimodal Medical Image Fusion
+# Multimodal Medical Image Fusion  
 
-Undergraduate research at CSUF pulling apart two things that usually travel together in fusion work: 
-the representation an image is converted into, and the combination rule that merges the two converted images. 
-Five transforms crossed with three combination rules, run on brain scans from Harvard's AANLIB archive.
+Undergraduate research at CSUF pulling apart two things that usually travel together in fusion work:  
+the representation an image is converted into, and the combination rule that merges the two converted images.  
+Five transforms crossed with three combination rules, run on brain scans from Harvard's AANLIB archive.  
 
-**Student:** Luis Rey Salinas Jr.
-**Mentor:** Dr. Yoonsuk Choi
-**School:** California State University, Fullerton
-**Status:** Expanded study complete. Grid, statistics, shift experiment and figures are all in.
-The revision for the conference paper added a formal interaction test and a check of the edge metric.
+**Student:** Luis Rey Salinas Jr.  
+**Mentor:** Dr. Yoonsuk Choi  
+**School:** California State University, Fullerton  
+**Status:** Expanded study complete. Grid, statistics, shift experiment and figures are all in.  
+The revision for the conference paper added a formal interaction test and a check of the edge metric.  
 
-The summer version of this work, as submitted for the SUReA poster and report, is tagged:
-[`surea-2026`](../../releases/tag/surea-2026).
-The code as it stood when the conference paper was submitted is tagged:
-[`ccwc-submission`](../../releases/tag/ccwc-submission).
-The code and results behind the camera-ready paper are tagged:
-[`ccwc-camera-ready`](../../releases/tag/ccwc-camera-ready).
-Everything on `main` is the expanded study.
+The summer version of this work, as submitted for the SUReA poster and report, is tagged:  
+[`surea-2026`](../../releases/tag/surea-2026).  
+The code as it stood when the conference paper was submitted is tagged:  
+[`ccwc-submission`](../../releases/tag/ccwc-submission).  
+The code and results behind the camera-ready paper are tagged:  
+[`ccwc-camera-ready`](../../releases/tag/ccwc-camera-ready).  
+Everything on `main` is the expanded study.  
 
 ## Overview
 
@@ -137,6 +137,7 @@ notebooks/
   07_paper_figures.py       the two figures in the paper
   08_run_art_anova.py       ART ANOVA for the transform x rule interaction
   09_check_edge_preservation.py   edge metric against a published implementation
+  09b_check_edge_breakdown.py     Table V breakdown, shift test at L = 1, CDDFuse code numbers
 results/
   metrics_long.csv                one row per measurement, 12,376 rows
   metrics_misalignment.csv        the same for the shift experiment, 16,016 rows
@@ -155,6 +156,8 @@ results/
   art_anova.csv                   ART ANOVA, 84 rows: F, corrected p and partial eta squared
   edge_preservation_check.csv     every image scored by the reference code and four versions of mine
   edge_preservation_report.csv    the edge preservation findings under each of those scorings
+  unfused_breakdown.csv           Table V's MRI share and partner term at L = 1.5 and 1
+  misalignment_edge_by_power.csv  DWT and SWT shift scores at L = 1.5 and 1, 1,664 rows
 app.py, registration.py, resize.py    a small Streamlit page that fuses an uploaded pair, separate from the study
 ```
 
@@ -168,6 +171,7 @@ Everything is written for Google Colab.
    `02` fills the grid, `03` measures it, `04` tests it, `05` runs the shift experiment,
    `06` derives the spreads and orderings, and `07` plots.
    `08` and `09` are the two checks added in revision and can be run in either order after `03`.
+   `09b` comes last, since it reads the output of `05` and `09`.
 3. Run the finish cell from `src/colab_setup.py` to push the CSVs back here.
 
 Every notebook expects `DATA`, `DRIVE_ROOT` and `REPO_PATH` from the startup cell. DO NOT forget the Startup cell.
