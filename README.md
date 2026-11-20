@@ -138,6 +138,7 @@ notebooks/
   08_run_art_anova.py       ART ANOVA for the transform x rule interaction
   09_check_edge_preservation.py   edge metric against a published implementation
   09b_check_edge_breakdown.py     Table V breakdown, shift test at L = 1, CDDFuse code numbers
+  10_run_sensitivity.py     MRI-CT rerun at 3 wavelet levels, then a 5 x 5 l1norm window
 results/
   metrics_long.csv                one row per measurement, 12,376 rows
   metrics_misalignment.csv        the same for the shift experiment, 16,016 rows
@@ -158,6 +159,10 @@ results/
   edge_preservation_report.csv    the edge preservation findings under each of those scorings
   unfused_breakdown.csv           Table V's MRI share and partner term at L = 1.5 and 1
   misalignment_edge_by_power.csv  DWT and SWT shift scores at L = 1.5 and 1, 1,664 rows
+  metrics_sensitivity_levels3.csv MRI-CT with both wavelets at 3 levels, 3,570 rows
+  metrics_sensitivity_window5.csv MRI-CT with a 5 x 5 l1norm window, 3,570 rows
+  sensitivity_summary.csv         each rerun's answers against the main grid
+  sensitivity_tests.csv           04's planned tests on the main grid and both reruns, 147 rows
 app.py, registration.py, resize.py    a small Streamlit page that fuses an uploaded pair, separate from the study
 ```
 
@@ -172,6 +177,7 @@ Everything is written for Google Colab.
    `06` derives the spreads and orderings, and `07` plots.
    `08` and `09` are the two checks added in revision and can be run in either order after `03`.
    `09b` comes last, since it reads the output of `05` and `09`.
+   `10` reruns MRI-CT from the source images with one setting changed at a time, after `03` and `04`.
 3. Run the finish cell from `src/colab_setup.py` to push the CSVs back here.
 
 Every notebook expects `DATA`, `DRIVE_ROOT` and `REPO_PATH` from the startup cell. DO NOT forget the Startup cell.
@@ -236,6 +242,14 @@ Removing the orientation fold on its own narrows the margin only slightly and le
 and the MRI-CT count where they were, but it has the same effect on the patient-level comparisons: nine of ten.
 With both changed, as in the reference code, the MRI-CT count is 8,
 the rule and the transform are level in MRI-SPECT, and `maxabs` wins eight of the ten.
+
+**One result depends on the `l1norm` window.**
+In a rerun of MRI-CT with one setting changed at a time, putting both wavelets at 3 levels leaves every planned comparison pointing the same way.
+A 5 x 5 window turns two around. One is a tie on entropy under the Laplacian (corrected p = 0.49).
+The other is the SWT against the DWT on mutual information under `l1norm`: the DWT moves ahead,
+median difference -0.018 against +0.025 at 3 x 3, corrected p = 0.0137.
+So the SWT's lead on the measures that look back at the sources holds at the 3 x 3 setting, but not in every case at 5 x 5.
+`results/sensitivity_tests.csv` has every planned comparison for both reruns.
 
 ## Notes on DenseFuse
 
