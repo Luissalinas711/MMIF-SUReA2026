@@ -1,0 +1,57 @@
+variant,metric,question,main_grid,variant_value,same
+levels3,MI,dominant,neither,neither,True
+levels3,MI,l1_higher,3 of 5,3 of 5,True
+levels3,MI,swt_above_dwt,2 of 2,2 of 2,True
+levels3,MI,unfused_above,12 of 12,12 of 12,True
+levels3,SSIM_mri,dominant,neither,neither,True
+levels3,SSIM_mri,l1_higher,5 of 5,5 of 5,True
+levels3,SSIM_mri,swt_above_dwt,2 of 2,2 of 2,True
+levels3,SSIM_mri,unfused_above,12 of 12,12 of 12,True
+levels3,SSIM_partner,dominant,neither,neither,True
+levels3,SSIM_partner,l1_higher,3 of 5,3 of 5,True
+levels3,SSIM_partner,swt_above_dwt,2 of 2,2 of 2,True
+levels3,SSIM_partner,unfused_above,0 of 12,0 of 12,True
+levels3,edge_preservation,dominant,rule,rule,True
+levels3,edge_preservation,l1_higher,0 of 5,0 of 5,True
+levels3,edge_preservation,swt_above_dwt,2 of 2,2 of 2,True
+levels3,edge_preservation,unfused_above,2 of 12,2 of 12,True
+levels3,entropy,dominant,neither,neither,True
+levels3,entropy,l1_higher,3 of 5,3 of 5,True
+levels3,entropy,swt_above_dwt,1 of 2,1 of 2,True
+levels3,entropy,unfused_above,1 of 12,1 of 12,True
+levels3,spatial_freq,dominant,rule,rule,True
+levels3,spatial_freq,l1_higher,0 of 5,0 of 5,True
+levels3,spatial_freq,swt_above_dwt,1 of 2,1 of 2,True
+levels3,spatial_freq,unfused_above,2 of 12,2 of 12,True
+levels3,std,dominant,neither,neither,True
+levels3,std,l1_higher,0 of 5,0 of 5,True
+levels3,std,swt_above_dwt,1 of 2,1 of 2,True
+levels3,std,unfused_above,0 of 12,0 of 12,True
+window5,MI,dominant,neither,neither,True
+window5,MI,l1_higher,3 of 5,3 of 5,True
+window5,MI,swt_above_dwt,2 of 2,1 of 2,False
+window5,MI,unfused_above,12 of 12,12 of 12,True
+window5,SSIM_mri,dominant,neither,neither,True
+window5,SSIM_mri,l1_higher,5 of 5,5 of 5,True
+window5,SSIM_mri,swt_above_dwt,2 of 2,2 of 2,True
+window5,SSIM_mri,unfused_above,12 of 12,12 of 12,True
+window5,SSIM_partner,dominant,neither,neither,True
+window5,SSIM_partner,l1_higher,3 of 5,3 of 5,True
+window5,SSIM_partner,swt_above_dwt,2 of 2,2 of 2,True
+window5,SSIM_partner,unfused_above,0 of 12,0 of 12,True
+window5,edge_preservation,dominant,rule,rule,True
+window5,edge_preservation,l1_higher,0 of 5,0 of 5,True
+window5,edge_preservation,swt_above_dwt,2 of 2,2 of 2,True
+window5,edge_preservation,unfused_above,2 of 12,2 of 12,True
+window5,entropy,dominant,neither,neither,True
+window5,entropy,l1_higher,3 of 5,2 of 5,False
+window5,entropy,swt_above_dwt,1 of 2,1 of 2,True
+window5,entropy,unfused_above,1 of 12,1 of 12,True
+window5,spatial_freq,dominant,rule,rule,True
+window5,spatial_freq,l1_higher,0 of 5,0 of 5,True
+window5,spatial_freq,swt_above_dwt,1 of 2,1 of 2,True
+window5,spatial_freq,unfused_above,2 of 12,2 of 12,True
+window5,std,dominant,neither,neither,True
+window5,std,l1_higher,0 of 5,0 of 5,True
+window5,std,swt_above_dwt,1 of 2,1 of 2,True
+window5,std,unfused_above,0 of 12,0 of 12,True
